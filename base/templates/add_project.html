@@ -1,0 +1,10 @@
+{% extends "base_generic.html" %}
+
+{% block addproject %}
+  <h2>Add a New Project</h2>
+  <form method="post" action="{% url 'add_project' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %}

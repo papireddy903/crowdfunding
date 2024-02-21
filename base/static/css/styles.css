@@ -1,0 +1,24 @@
+body {
+    background-color: white;
+}
+
+.container-fluid{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em; 
+    gap: 1em;
+}
+
+
+.nav-title {
+    text-align: center;
+    flex-grow: 1; 
+}
+
+.nav-link--1,
+.nav-link--2 {
+    text-decoration: none;
+    color: black;
+}
+

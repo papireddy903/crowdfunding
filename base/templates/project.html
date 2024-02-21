@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+
+{% block projects %}
+
+<a href="{% url 'view_project' project.id %}">{{project.title}}</a>
+<p>{{project.description}}</p>
+<p>{{project.funding_goal}}</p>
+<p>{{project.current_funding}}</p>
+<p>{{project.creator}}</p>
+{% if project.creator != request.user %}
+<p>{{project.creator}}</p>
+<p>{{request.user}}</p>
+<a href="{% url 'fund_project' project.id %}" class="btn btn-primary">Fund this project</a>
+{% endif %}
+
+{% endblock %}

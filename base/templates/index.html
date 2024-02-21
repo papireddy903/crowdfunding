@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Body</h1>
+{% endblock %}
+
+{% block users %}
+<p>No of Users: {{usernames|length}}</p>
+    {% for i,j in creator_projects.items %}
+    <p>{{i}}: {{j}} projects</p>
+{% endfor %}
+
+{% endblock %}
+
+
+

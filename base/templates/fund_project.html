@@ -1,0 +1,12 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Fund Project</h1>
+  <p>Project: {{ project.title }}</p>
+  <form method="post" action="{% url 'fund_project' project.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Fund Project">
+  </form>
+  <a href="{% url 'index' %}">Back to Projects</a>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+
+
+{% block projects %}
+{% for project in all_projects %}
+
+<h1><a href="{% url 'view_project' project.id%}" style="text-decoration:None">{{project.title}}</a></h1>
+
+<br>
+
+
+{% endfor %}
+{% endblock %}
