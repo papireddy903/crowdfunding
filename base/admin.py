@@ -23,4 +23,4 @@ class AudienceAdmin(admin.ModelAdmin):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description','funding_goal','current_funding','creator')
+    list_display = ('title', 'description','project_type','funding_goal','current_funding','creator')

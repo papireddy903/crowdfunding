@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+
+{% block projects_type_list %}
+
+<p><strong>No of projects: </strong>{{projects_type_list|length}}</p>
+
+{% for project in projects_type_list %}
+
+<h5><a href="{% url 'view_project' project.id %}" style="text-decoration:None">{{project.title}}</a></h5>
+
+<br>
+
+
+{% endfor %}
+{% endblock %}
+

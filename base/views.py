@@ -72,6 +72,7 @@ def add_project(request):
                 description=description,
                 funding_goal=funding_goal,
                 current_funding=0,
+                project_type=project_type,
                 start_date=timezone.now(),
                 end_date=enddate,
                 creator=Creator.objects.get_or_create(user=creator)[0]
@@ -94,5 +95,11 @@ def add_project(request):
 
 
 # def login(request):
+
+def project_type(request, ptype):
+    projects_type_list = Project.objects.filter(project_type=ptype)
+    print(list(projects_type_list))
+    return render(request, 'project_type.html', {'projects_type_list': projects_type_list})
+
 
         

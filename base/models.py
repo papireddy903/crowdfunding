@@ -36,10 +36,18 @@ class Audience(models.Model):  #backers
     interests = models.TextField()
 
 class Project(models.Model):
+    TYPE_CHOICES = [
+        ('tech', 'Technology'),
+        ('art', 'Art'),
+        ('comics','Comics'),
+        ('games','Games'),
+        ('publishing','Publishing'),
+    ]
     title = models.TextField(max_length=200)
     description = models.TextField()
     creator = models.ForeignKey(Creator, on_delete = models.CASCADE)
     # audience = models.ManyToManyField(Audience)
+    project_type = models.CharField(max_length=200, choices=TYPE_CHOICES,default='tech')
     funding_goal = models.DecimalField(max_digits=10, decimal_places=2)
     current_funding = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     start_date = models.DateField(null=True)

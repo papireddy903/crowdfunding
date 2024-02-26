@@ -24,6 +24,17 @@
 
     </nav>
 
+    <div style="display:flex; justify-content: center;">
+        <a href="{% url 'project_type' 'tech' %}" style="margin-right: 10px;">Technology</a>
+        <a href="{% url 'project_type' 'games' %}" style="margin-right: 10px;">Games</a>
+        <a href="{% url 'project_type' 'arts' %}" style="margin-right: 10px;">Arts</a>
+        <a href="{% url 'project_type' 'comics' %}" style="margin-right: 10px;">Comics</a>
+        <a href="{% url 'project_type' 'publishing' %}" style="margin-right: 10px;">Publishing</a>
+    </div>
+
+    
+    
+
 
 
     <div class="body">
@@ -37,6 +48,9 @@
         {% endblock %}
 
         {% block addproject %}
+        {% endblock %}
+
+        {% block projects_type_list %}
         {% endblock %}
     </div>
     
