@@ -5,11 +5,12 @@
 
 <a href="{% url 'view_project' project.id %}">{{project.title}}</a>
 <p>Project Description: {{project.description}}</p>
-<p>Funding Goal: {{project.funding_goal}}</p>
 <p>Project Type : {{project.project_type}}</p>
-<p>Current Funding: {{project.current_funding}}</p>
+<p>Funding Goal: ₹{{project.funding_goal}}</p>
+<p>Current Funding: ₹{{project.current_funding}}</p>
 {% if project.creator != request.user %}
 <p>Creator: {{project.creator}}</p>
+<p>{{project.remaining_time}}</p>
 <!-- <p>{{request.user}}</p> -->
 <a href="{% url 'fund_project' project.id %}" class="btn btn-primary">Fund this project</a>
 {% endif %}

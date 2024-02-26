@@ -1,5 +1,8 @@
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
+from datetime import date, timedelta
+
 
 # Create your models here.
 dic = dict()
@@ -53,8 +56,22 @@ class Project(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
 
-    
-    # dic[creator]+=1 
+    @property
+    def remaining_time(self):
+        now = date.today()  
+        time_difference = self.end_date - now
+        days = time_difference.days
+        hours, remainder = divmod(time_difference.seconds, 3600)
+        minutes, _ = divmod(remainder, 60)
+        if days > 0:
+            return f"{days} {'day' if days == 1 else 'days'} to go"
+        elif hours > 0:
+            return f"{hours} {'hour' if hours == 1 else 'hours'} to go"
+        elif minutes > 0:
+            return f"{minutes} {'minute' if minutes == 1 else 'minutes'} to go"
+        else:
+            return "Less than a minute to go"
+
     
     def get_creator_count(self, creator):
         return self.dic[creator]
