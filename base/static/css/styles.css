@@ -22,3 +22,114 @@ body {
     color: black;
 }
 
+
+/* styles.css */
+
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-heading {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .login-form {
+    margin-top: 20px;
+  }
+  
+  .login-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .login-button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .login-button:hover {
+    background-color: #267bb5;
+  }
+  
+  .register-link {
+    margin-top: 15px;
+    color: #555;
+  }
+  
+  .register-link a {
+    color: #3498db;
+    text-decoration: none;
+  }
+  
+  .register-link a:hover {
+    text-decoration: underline;
+  }
+  
+
+  /* styles.css */
+
+/* Add Project Styles */
+.add-project-container {
+  max-width: 600px;
+  margin: auto;
+}
+
+.add-project-heading {
+  font-size: 24px;
+  color: #333;
+}
+
+.add-project-form {
+  margin-top: 20px;
+}
+
+/* Style form inputs and buttons */
+.add-project-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.add-project-form input,
+.add-project-form textarea,
+.add-project-form button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.add-project-form textarea {
+  resize: vertical; 
+}
+
+.add-project-form button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.add-project-form button:hover {
+  background-color: #0056b3;
+}

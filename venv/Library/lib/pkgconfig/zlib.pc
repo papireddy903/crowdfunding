@@ -1,0 +1,13 @@
+prefix=D:/crowdfunding/venv/Library
+exec_prefix=D:/crowdfunding/venv/Library
+libdir=D:/crowdfunding/venv/Library/lib
+sharedlibdir=D:/crowdfunding/venv/Library/lib
+includedir=D:/crowdfunding/venv/Library/include
+
+Name: zlib
+Description: zlib compression library
+Version: 1.2.13
+
+Requires:
+Libs: -L${libdir} -L${sharedlibdir} -lz
+Cflags: -I${includedir}

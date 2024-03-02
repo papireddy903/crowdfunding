@@ -1,1 +1,16 @@
-<h1>logged in</h1>
+{% extends 'base_generic.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+
+{% block content %}
+  <div class="login-container">
+    <h2 class="login-heading">Login</h2>
+    <form method="post" action="{% url 'login' %}" class="login-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+
+      <button type="submit" class="login-button">Login</button>
+    </form>
+    <p class="register-link">Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+  </div>
+{% endblock %}

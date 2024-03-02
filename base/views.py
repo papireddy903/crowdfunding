@@ -4,7 +4,7 @@ from .forms import FundingForm, AddProjectForm
 from django.utils import timezone 
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -17,7 +17,7 @@ def index(request):
         all_projects.append(project)
         creator_projects[creator] = creator_projects.get(creator, 0) + 1
 
-    usernames = [user.name for user in users]
+    usernames = [user.username for user in users]
     context = {'usernames': usernames,
     'creator_projects': creator_projects,
     'all_projects': all_projects,
@@ -25,6 +25,7 @@ def index(request):
 
     return render(request, 'index.html', context)
 
+@login_required
 def fund_project(request,pId):
     project = get_object_or_404(Project, pk=pId)
 
@@ -50,7 +51,7 @@ def view_project(request, pId):
 
     return render(request, "project.html", {'project':project})
 
-
+@login_required
 def add_project(request):
     if request.method == "POST":
         form = AddProjectForm(request.POST)
@@ -58,13 +59,14 @@ def add_project(request):
             project_name = form.cleaned_data["project_name"]
             description = form.cleaned_data["description"]
             funding_goal = form.cleaned_data["funding_goal"]
+            project_type = form.cleaned_data["project_type"]
             creator_name = form.cleaned_data["creator"]
             enddate = form.cleaned_data["enddate"]
 
             try:
-                creator = User.objects.get(name=creator_name)
+                creator = User.objects.get(username=creator_name)
             except User.DoesNotExist:
-                creator = User.objects.create(name=creator_name)
+                creator = User.objects.create(username=creator_name)
 
             # Create a new project and associated creator
             new_project = Project(
@@ -75,7 +77,7 @@ def add_project(request):
                 project_type=project_type,
                 start_date=timezone.now(),
                 end_date=enddate,
-                creator=Creator.objects.get_or_create(user=creator)[0]
+                creator=Creator.objects.get_or_create(username=creator)[0]
             )
             new_project.save()
 
@@ -97,9 +99,22 @@ def add_project(request):
 # def login(request):
 
 def project_type(request, ptype):
+    print(request)
+    print(ptype)
     projects_type_list = Project.objects.filter(project_type=ptype)
+    print(projects_type_list)
     print(list(projects_type_list))
     return render(request, 'project_type.html', {'projects_type_list': projects_type_list})
 
 
-        
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('index')  # Replace 'home' with the URL you want to redirect to after registration
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'registration/register.html', {'form': form})

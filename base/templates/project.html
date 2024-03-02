@@ -8,10 +8,9 @@
 <p>Project Type : {{project.project_type}}</p>
 <p>Funding Goal: ₹{{project.funding_goal}}</p>
 <p>Current Funding: ₹{{project.current_funding}}</p>
-{% if project.creator != request.user %}
-<p>Creator: {{project.creator}}</p>
+{% if project.creator != request.username %}
+<p>Creator: {{project.creator.username}}</p>
 <p>{{project.remaining_time}}</p>
-<!-- <p>{{request.user}}</p> -->
 <a href="{% url 'fund_project' project.id %}" class="btn btn-primary">Fund this project</a>
 {% endif %}
 

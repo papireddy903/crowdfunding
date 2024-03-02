@@ -6,7 +6,7 @@ class FundingForm(forms.Form):
 
 class AddProjectForm(forms.Form):
     TYPE_CHOICES = [
-        ('tech', 'Technology'),
+        ('technology', 'Technology'),
         ('art', 'Art'),
         ('comics','Comics'),
         ('games','Games'),

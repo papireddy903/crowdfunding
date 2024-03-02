@@ -22,14 +22,26 @@
             <a href="{% url 'index' %}" style="text-decoration: None;"><h1 class="nav-title--text"><strong>Crowdfunding</strong></h1></a>
         </div>
 
+        <div class="auth">
+            {% if user.is_authenticated %}
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+        </div>
+        
+
     </nav>
 
     <div style="display:flex; justify-content: center;">
-        <a href="{% url 'project_type' 'tech' %}" style="margin-right: 10px;">Technology</a>
-        <a href="{% url 'project_type' 'games' %}" style="margin-right: 10px;">Games</a>
-        <a href="{% url 'project_type' 'arts' %}" style="margin-right: 10px;">Arts</a>
-        <a href="{% url 'project_type' 'comics' %}" style="margin-right: 10px;">Comics</a>
-        <a href="{% url 'project_type' 'publishing' %}" style="margin-right: 10px;">Publishing</a>
+        <a href="{% url 'project_type' 'technology' %}" style="margin-right: 10px; text-decoration:None;">Technology</a>
+        <a href="{% url 'project_type' 'games' %}" style="margin-right: 10px; text-decoration:None;">Games</a>
+        <a href="{% url 'project_type' 'arts' %}" style="margin-right: 10px; text-decoration:None;">Arts</a>
+        <a href="{% url 'project_type' 'comics' %}" style="margin-right: 10px; text-decoration:None;">Comics</a>
+        <a href="{% url 'project_type' 'publishing' %}" style="margin-right: 10px; text-decoration:None;">Publishing</a>
     </div>
 
     
@@ -38,6 +50,8 @@
 
 
     <div class="body">
+        {% block register %}
+        {% endblock %}
         {% block content %}
         {% endblock %}
         

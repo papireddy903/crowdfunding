@@ -1,6 +1,7 @@
 from django.urls import path 
 from . import views 
 from django.contrib.auth import views as auth_views
+from .views import register
 
 urlpatterns = [
     path("",views.index,name="index"),
@@ -12,6 +13,8 @@ urlpatterns = [
     path("all-projects/<int:pId>",views.view_project, name="view_project"),
     path("add-project/", views.add_project,name="add_project"),
     path("all-projects/<str:ptype>", views.project_type, name="project_type"),
+    path('accounts/register/', register, name='register'),
+    # path('accounts/profile',views.profile, name='profile'),
     
      
     
