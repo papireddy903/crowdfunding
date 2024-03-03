@@ -1,13 +1,28 @@
 {% extends "base_generic.html" %}
 
+{% block content %}
 
-{% block projects %}
-{% for project in all_projects %}
+  <h3>Featured Project</h3>
+  {% if featured_project.creator|lower|striptags != user.username|lower|striptags %}
+    <h1><a href="{% url 'view_project' featured_project.id %}" style="text-decoration: None;">{{ featured_project.title }}</a></h1>
+    {% if featured_project.id == featured_percentage.0.0 %}
+      {% with percent=featured_percentage.0.1|striptags %}
+        <p>{{ percent }}% funded</p>
+      {% endwith %}
+    {% endif %}
+  {% endif %}
 
-<h1><a href="{% url 'view_project' project.id%}" style="text-decoration:None">{{project.title}}</a></h1>
+  <hr>
 
-<br>
+  <h3>Recommended for you</h3>
+  {% for project_id, project_percentage in percentage_funded %}
+    {% for project in remaining_projects %}
+      {% if project.id == project_id and project.creator != user.username %}
+        <h1><a href="{% url 'view_project' project_id %}" style="text-decoration: None;">{{ project.title }}</a></h1>
+        <p>{{ project_percentage }}% funded</p>
+        <br>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
 
-
-{% endfor %}
 {% endblock %}

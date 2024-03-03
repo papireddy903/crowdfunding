@@ -22,9 +22,6 @@ body {
     color: black;
 }
 
-
-/* styles.css */
-
 .login-container {
     max-width: 400px;
     margin: 50px auto;
@@ -86,9 +83,6 @@ body {
   }
   
 
-  /* styles.css */
-
-/* Add Project Styles */
 .add-project-container {
   max-width: 600px;
   margin: auto;
@@ -103,7 +97,6 @@ body {
   margin-top: 20px;
 }
 
-/* Style form inputs and buttons */
 .add-project-form label {
   display: block;
   margin-bottom: 8px;

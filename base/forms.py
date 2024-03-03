@@ -16,7 +16,7 @@ class AddProjectForm(forms.Form):
     description = forms.CharField(widget=forms.Textarea)
     funding_goal = forms.DecimalField(label='Funding Goal', min_value=0)
     project_type = forms.ChoiceField(choices=TYPE_CHOICES, label='Project Type')
-    creator = forms.CharField(label="Enter your Name", max_length=100)
+    # creator = forms.CharField(label="Enter your Name", max_length=100)
     enddate = forms.DateField(label='End Date', widget=forms.TextInput(attrs={'type': 'date'}))
 
 
