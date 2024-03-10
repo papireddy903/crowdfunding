@@ -1,0 +1,24 @@
+{% extends 'base_generic.html' %}
+
+{% block login %}
+
+
+<div>
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <label for="id_username">Username:</label>
+        <input type="text" name="username" id="id_username" placeholder="Enter username" required>
+        <label for="id_password">Password:</label>
+        <input type="password" name="password" id="id_password" placeholder="Enter Password" required>
+        <input type="submit" value="Login">
+    </form>
+    <p>Haven't signed up yet?</p>
+    <a href="{% url 'register' %}">Sign up</a>
+</div>
+
+
+
+
+
+
+{% endblock %}

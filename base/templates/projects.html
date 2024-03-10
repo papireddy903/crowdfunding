@@ -3,13 +3,15 @@
 {% block content %}
 
   <h3>Featured Project</h3>
-  {% if featured_project.creator|lower|striptags != user.username|lower|striptags %}
+  {% if featured_project and featured_project.creator.username != user.username %}
     <h1><a href="{% url 'view_project' featured_project.id %}" style="text-decoration: None;">{{ featured_project.title }}</a></h1>
-    {% if featured_project.id == featured_percentage.0.0 %}
-      {% with percent=featured_percentage.0.1|striptags %}
+    {% if featured_percentage %}
+      {% with percent=featured_percentage.0.1 %}
         <p>{{ percent }}% funded</p>
       {% endwith %}
     {% endif %}
+  {% else %}
+    <p>No featured project available.</p>
   {% endif %}
 
   <hr>
@@ -17,7 +19,7 @@
   <h3>Recommended for you</h3>
   {% for project_id, project_percentage in percentage_funded %}
     {% for project in remaining_projects %}
-      {% if project.id == project_id and project.creator != user.username %}
+      {% if project.id == project_id and project.creator.username != user.username %}
         <h1><a href="{% url 'view_project' project_id %}" style="text-decoration: None;">{{ project.title }}</a></h1>
         <p>{{ project_percentage }}% funded</p>
         <br>

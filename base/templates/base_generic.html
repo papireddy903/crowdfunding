@@ -21,17 +21,13 @@
         <div class="nav-title" style="align-items: center;">
             <a href="{% url 'index' %}" style="text-decoration: None; "><span class="nav-title--text"><span>Crowdfunding</span></></a>
         </div>
-
-        <div class="auth">
-            {% if user.is_authenticated %}
-                <form method="post" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <button type="submit">Logout</button>
-                </form>
-            {% else %}
-                <a href="{% url 'register' %}">Register</a>
-            {% endif %}
-        </div>
+        
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+        
         
 
     </nav>
@@ -50,6 +46,17 @@
 
 
     <div class="body">
+        {% if messages %}
+        <ul class ="messages">
+            {% for message in messages %}
+                <li> {{ message }} </li>
+            {% endfor %}
+
+        </ul>
+        {% endif %}
+        {% block login %}
+        {% endblock %}
+
         {% block register %}
         {% endblock %}
         {% block content %}
