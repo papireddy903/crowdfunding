@@ -36,8 +36,6 @@ class Creator(models.Model):
     bio = models.TextField(null=True, blank=True, default=None)
 
 
-    
-
     def __str__(self):
         return self.username.username
     

@@ -9,8 +9,43 @@ from django.db.models import Max, Sum
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.http.response import Http404
-
 from django.contrib.auth import authenticate, login , logout 
+from rest_framework.views import APIView 
+from .models import User, Project, Creator
+from .serializer import UserSerializer, ProjectSerializer, CreatorSerializer
+from rest_framework.response import Response 
+
+class UsersView(APIView):
+    def get(self, request):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+    
+class ProjectsView(APIView):
+    def get(self, request):
+        projects = Project.objects.all() 
+        serializer = ProjectSerializer(projects, many=True)
+        return Response(serializer.data) 
+
+class CreatorsView(APIView):
+    def get(self, request):
+        creators = Creator.objects.all()
+        creator_user_ids = [creator.username_id for creator in creators]
+        creator_users = User.objects.filter(pk__in=creator_user_ids)
+
+        serializer = UserSerializer(creator_users, many=True)  
+        return Response(serializer.data)
+
+class UserDetail(APIView):
+    def get(self, request, username):
+        users = User.objects.get(username=username)
+        serializer = UserSerializer(users, many=False)
+        return Response(serializer.data)
+    
+
+
+    
+
 
 def loginPage(request):
     if request.method == 'POST':
