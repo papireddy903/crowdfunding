@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import User, Project, Creator
+from .models import User, Project, Creator, Backer 
 from .forms import FundingForm, AddProjectForm
 from django.utils import timezone 
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Max, Sum
 from django.contrib import messages
@@ -12,6 +13,10 @@ from django.http.response import Http404
 from django.contrib.auth import authenticate, login , logout 
 # from rest_framework.views import APIView 
 from .models import User, Project, Creator
+
+from django.shortcuts import render, get_object_or_404
+from django.db.models import Max, F
+from .models import Project
 # from .serializer import UserSerializer, ProjectSerializer, CreatorSerializer
 # from rest_framework.response import Response 
 
@@ -88,8 +93,11 @@ def index(request):
 
     return render(request, 'home.html', context)
 
+
+
+
 @login_required(login_url='login')
-def fund_project(request,pId):
+def fund_project(request, pId):
     project = get_object_or_404(Project, pk=pId)
 
     if request.method == "POST":
@@ -97,22 +105,30 @@ def fund_project(request,pId):
         if form.is_valid():
             funding_amount = form.cleaned_data["funding_amount"]
             project.current_funding += funding_amount 
+            user = request.user
+            backer, created = Backer.objects.get_or_create(user=user)
+            backer.amount_pledged += funding_amount
+    
+            if created:
+                backer.save()
+            backer.save()
+            project.backers.add(backer)
             project.save()
+            messages.success(request, 'Thank you for funding and backing this project!')
             return render(request, 'confirmation.html')
-        
-    form = FundingForm()
-    return render(request, "fund_project.html", {'project':project, 'form':form})
+    else:
+        form = FundingForm()
+    
+    return render(request, "fund_project.html", {'project': project, 'form': form})
 
-from django.shortcuts import render, get_object_or_404
-from django.db.models import Max, F
-from .models import Project
+
 
 @login_required(login_url='login')
 def list_projects(request):
-    user = request.user
+    user = request.user.username 
     all_projects = Project.objects.all()
     try:
-        creator = get_object_or_404(Creator, username=user)
+        creator = get_object_or_404(Creator, user__username=user)
         print("entered try")
         projects_excluded_user = Project.objects.exclude(creator=creator)
         highest_funded_project = projects_excluded_user.order_by('-current_funding').first()    
@@ -168,8 +184,6 @@ def list_projects(request):
 
         return render(request, 'projects.html', context)
 
-   
-
 
 def view_project(request, pId):
     project = get_object_or_404(Project, id=pId)
@@ -186,6 +200,7 @@ def add_project(request):
             project_type = form.cleaned_data["project_type"]
             creator_name = request.user.username
             enddate = form.cleaned_data["enddate"]
+            print("creatorname: ",creator_name)
 
             try:
                 creator = User.objects.get(username=creator_name)
@@ -201,7 +216,7 @@ def add_project(request):
                 project_type=project_type,
                 start_date=timezone.now(),
                 end_date=enddate,
-                creator=Creator.objects.get_or_create(username=creator)[0]
+                creator=Creator.objects.get_or_create(user=creator)[0]
             )
             new_project.save()
 
@@ -215,11 +230,6 @@ def add_project(request):
     return render(request, 'add_project.html', {'form': form})
 
 
-# def signup(request):
-    
-
-
-# def login(request):
 
 def project_type(request, ptype):
     print(request)
@@ -229,15 +239,3 @@ def project_type(request, ptype):
     print(list(projects_type_list))
     return render(request, 'project_type.html', {'projects_type_list': projects_type_list})
 
-
-# def register(request):
-#     if request.method == 'POST':
-#         form = UserCreationForm(request.POST)
-#         if form.is_valid():
-#             user = form.save()
-#             login(request, user)
-#             return redirect('index') 
-#     else:
-#         form = UserCreationForm()
-
-#     return render(request, 'registration/register.html', {'form': form})

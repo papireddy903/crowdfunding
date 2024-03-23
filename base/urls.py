@@ -13,9 +13,5 @@ urlpatterns = [
     path("add-project/", views.add_project,name="add_project"),
     path("all-projects/<str:ptype>", views.project_type, name="project_type"),
     
-    # path('accounts/register/', register, name='register'),
-    # path('accounts/profile',views.profile, name='profile'),
-    
-     
     
 ]
