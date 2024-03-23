@@ -12,10 +12,7 @@ urlpatterns = [
     path("all-projects/<int:pId>",views.view_project, name="view_project"),
     path("add-project/", views.add_project,name="add_project"),
     path("all-projects/<str:ptype>", views.project_type, name="project_type"),
-    path("users/",views.UsersView.as_view(), name='users'),
-    path("projects/",views.ProjectsView.as_view(), name='projects'),
-    path("creators/",views.CreatorsView.as_view(), name='creators'),
-    path("users/<str:name>",views.UserDetail.as_view(), name='userdetail'),
+    
     # path('accounts/register/', register, name='register'),
     # path('accounts/profile',views.profile, name='profile'),
     

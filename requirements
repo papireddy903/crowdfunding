@@ -1,5 +1,0 @@
-django
-django-allauth
-rest_framework 
-django-cors-headers
-mysqlclient
