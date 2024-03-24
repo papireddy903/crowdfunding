@@ -1,22 +1,8 @@
-from ..models import User, Project, Creator 
+from ..models import User, Project, Creator , Backer
 from rest_framework.serializers import ModelSerializer 
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
-
-class UserSerializer(ModelSerializer):
-    class Meta:
-        model = User 
-        fields = '__all__' 
-
-class ProjectSerializer(ModelSerializer):
-    class Meta:
-        model = Project 
-        fields=  '__all__'
-
-class CreatorSerializer(ModelSerializer):
-    class Meta:
-        model = Creator 
-        fields= '__all__' 
+from .serializer import BackerSerializer, UserSerializer, ProjectSerializer, CreatorSerializer
 
 
 
@@ -35,7 +21,7 @@ class ProjectsView(APIView):
 class CreatorsView(APIView):
     def get(self, request):
         creators = Creator.objects.all()
-        creator_user_ids = [creator.username_id for creator in creators]
+        creator_user_ids = [creator.user.id for creator in creators]
         creator_users = User.objects.filter(pk__in=creator_user_ids)
 
         serializer = UserSerializer(creator_users, many=True)  
@@ -46,3 +32,11 @@ class UserDetail(APIView):
         users = User.objects.get(username=username)
         serializer = UserSerializer(users, many=False)
         return Response(serializer.data)
+    
+class BackerView(APIView):
+    def get(self, request):
+        backers = Backer.objects.all()
+        backer_user_ids = [backer.user.id for backer in backers] 
+        backer_users = User.objects.filter(pk__in = backer_user_ids) 
+        serializer = BackerSerializer(backer_users, many=True) 
+        return Response(serializer.data) 

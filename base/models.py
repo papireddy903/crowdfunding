@@ -35,7 +35,7 @@ class Project(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     creator = models.ForeignKey(Creator, on_delete=models.CASCADE)
-    backers = models.ManyToManyField(Backer, related_name='backed_projects')  # Added related_name
+    backers = models.ManyToManyField(User, related_name='backed_projects')  
     project_type = models.CharField(max_length=200, choices=TYPE_CHOICES, default='technology')
     funding_goal = models.DecimalField(max_digits=10, decimal_places=2)
     current_funding = models.DecimalField(max_digits=10, decimal_places=2, default=0)

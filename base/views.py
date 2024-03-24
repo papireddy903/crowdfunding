@@ -108,11 +108,12 @@ def fund_project(request, pId):
             user = request.user
             backer, created = Backer.objects.get_or_create(user=user)
             backer.amount_pledged += funding_amount
-    
+            print(backer.id)
+            print(backer.user.id)
             if created:
                 backer.save()
             backer.save()
-            project.backers.add(backer)
+            project.backers.add(backer.user.id)
             project.save()
             messages.success(request, 'Thank you for funding and backing this project!')
             return render(request, 'confirmation.html')
