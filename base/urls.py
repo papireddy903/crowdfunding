@@ -12,6 +12,6 @@ urlpatterns = [
     path("all-projects/<int:pId>",views.view_project, name="view_project"),
     path("add-project/", views.add_project,name="add_project"),
     path("all-projects/<str:ptype>", views.project_type, name="project_type"),
-    
+    path("all-projects/<int:pk>/add-comment",views.add_comment, name="add_comment"),
     
 ]

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import User, Creator, Project, Backer
+from .models import User, Creator, Project, Backer ,Comment
 
 admin.site.unregister(User)
 
@@ -23,3 +23,5 @@ class BackerAdmin(admin.ModelAdmin):
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'project_type', 'funding_goal', 'current_funding', 'creator')
     exclude = ('backers',)
+
+admin.site.register(Comment)

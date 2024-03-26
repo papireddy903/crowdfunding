@@ -1,5 +1,5 @@
 from django import forms 
-
+from . models import Comment
 class FundingForm(forms.Form):
     funding_amount = forms.DecimalField(label='Funding Amount', min_value=0)
 
@@ -19,5 +19,13 @@ class AddProjectForm(forms.Form):
     # creator = forms.CharField(label="Enter your Name", max_length=100)
     enddate = forms.DateField(label='End Date', widget=forms.TextInput(attrs={'type': 'date'}))
 
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('comment_body',)
+        widgets = {
+            
+            'comment_body': forms.Textarea(attrs={'class': 'form-control'}),
+        }
 
 

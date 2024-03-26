@@ -14,4 +14,44 @@
 <a href="{% url 'fund_project' project.id %}" class="btn btn-primary">Fund this project</a>
 {% endif %}
 
+
+<div class="col-md-4">
+    <div style="margin: 5px padding:2px">
+       Add Comments ({{ num_comments }})
+       <br>
+       <hr>
+
+       {% if not project.comments.all %}
+
+           <p>Not comments added yet...</p>
+          <p><a class="btn btn-primary" href="{% url 'add-comment' project.id %}">  Add Comment </a></p>
+          {% comment %} <p><a class="btn btn-primary" href="#">  Add Comment </a></p> {% endcomment %}
+       {% else %}
+
+           {% for comment in project.comments.all %}
+
+               <h5><strong>{{ comment.commenter_name }}</strong></h5>
+               <p>{{ comment.comment_body }}</p>
+               <p><small>{{ comment.date_added }}</small></p>
+
+               {% if request.user.username == comment.commenter_name %}
+
+               <p><a class="btn btn-primary" href="{% url 'add-comment' project.id %}">  Add Comment </a></p>
+                 
+                   {% comment %} <p><a class="btn btn-primary" href="#">  Add Comment </a></p> {% endcomment %}
+                   <p><a class="btn btn-danger" href="#">  Delete Comment </a></p>
+               {% endif %}
+               
+               
+
+           {% endfor %}
+
+       {% endif %}
+
+
+
+    </div>
+ </div>
+
+
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import User, Project, Creator, Backer 
-from .forms import FundingForm, AddProjectForm
+from .forms import FundingForm, AddProjectForm,CommentForm
 from django.utils import timezone 
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -12,14 +12,14 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http.response import Http404
 from django.contrib.auth import authenticate, login , logout 
 # from rest_framework.views import APIView 
-from .models import User, Project, Creator
+from .models import User, Project, Creator,Comment
 
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Max, F
 from .models import Project
 # from .serializer import UserSerializer, ProjectSerializer, CreatorSerializer
 # from rest_framework.response import Response 
-
+from datetime import datetime
 
     
 
@@ -239,4 +239,29 @@ def project_type(request, ptype):
     print(projects_type_list)
     print(list(projects_type_list))
     return render(request, 'project_type.html', {'projects_type_list': projects_type_list})
+
+def add_comment(request, pk):
+    project = Project.objects.get(id=pk)
+
+    form = CommentForm(instance=project)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=project)
+        if form.is_valid():
+            name = request.user.username
+            body = form.cleaned_data['comment_body']
+            c = Comment(Project=project, commenter_name=name, comment_body=body, date_added=datetime.now())
+            c.save()
+            return redirect('view_project')
+        else:
+            print('form is invalid')    
+    else:
+        form = CommentForm()    
+
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'add_comment.html', context)
 

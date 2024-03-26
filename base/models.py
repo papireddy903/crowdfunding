@@ -63,3 +63,13 @@ class Project(models.Model):
     
     def get_absolute_url(self):
         return reverse('project-detail', args=[str(self.pk)])
+class Comment(models.Model):
+    project=models.ForeignKey(Project,related_name="comments",on_delete=models.CASCADE)
+    commenter_name=models.CharField(max_length=200)
+    comment_body=models.TextField()
+    date_added=models.DateTimeField(auto_now_add=True)
+    
+
+    def __str__(self):
+        return '%s - %s' %(self.project.title, self.commenter_name)
+
