@@ -20,7 +20,7 @@ from .models import Project
 # from .serializer import UserSerializer, ProjectSerializer, CreatorSerializer
 # from rest_framework.response import Response 
 
-
+from .forms import CommentForm
     
 
 
@@ -240,3 +240,19 @@ def project_type(request, ptype):
     print(list(projects_type_list))
     return render(request, 'project_type.html', {'projects_type_list': projects_type_list})
 
+
+def add_comment(request, pId):
+    project = Project.objects.get(id=pId)
+    user = request.user.username 
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.project = project
+            comment.commenter_name = user 
+            comment.save()
+            return redirect('view_project', pId=pId)
+    else:
+        form = CommentForm()
+
+    return render(request, 'project.html', {'form': form, 'project': project})

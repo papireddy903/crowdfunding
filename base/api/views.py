@@ -1,8 +1,8 @@
-from ..models import User, Project, Creator , Backer
+from ..models import User, Project, Creator , Backer, Comment
 from rest_framework.serializers import ModelSerializer 
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
-from .serializer import BackerSerializer, UserSerializer, ProjectSerializer, CreatorSerializer
+from .serializer import BackerSerializer, UserSerializer, ProjectSerializer, CreatorSerializer, CommentSerializer
 
 
 
@@ -16,6 +16,12 @@ class ProjectsView(APIView):
     def get(self, request):
         projects = Project.objects.all() 
         serializer = ProjectSerializer(projects, many=True)
+        return Response(serializer.data) 
+
+class ProjectDetail(APIView):
+    def get(self, request, title):
+        projects = Project.objects.filter(title=title) 
+        serializer = ProjectSerializer(projects, many=True) 
         return Response(serializer.data) 
 
 class CreatorsView(APIView):
@@ -39,4 +45,16 @@ class BackerView(APIView):
         backer_user_ids = [backer.user.id for backer in backers] 
         backer_users = User.objects.filter(pk__in = backer_user_ids) 
         serializer = BackerSerializer(backer_users, many=True) 
+        return Response(serializer.data) 
+    
+class CommentsView(APIView):
+    def get(self, request):
+        comments = Comment.objects.all() 
+        serializer = CommentSerializer(comments, many=True) 
+        return Response(serializer.data)  
+
+class CommentDetail(APIView):
+    def get(self, request, title):
+        comments = Comment.objects.filter(project__title = title)
+        serializer = CommentSerializer(comments, many=True) 
         return Response(serializer.data) 
