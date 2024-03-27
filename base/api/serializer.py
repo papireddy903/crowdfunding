@@ -1,15 +1,21 @@
 from rest_framework.serializers import ModelSerializer 
 from ..models import User, Project, Creator , Backer, Comment 
 
-class UserSerializer(ModelSerializer):
-    class Meta:
-        model = User 
-        fields = '__all__' 
+
 
 class ProjectSerializer(ModelSerializer):
     class Meta:
         model = Project 
-        fields=  '__all__'
+        fields=  '__all__' 
+
+class UserSerializer(ModelSerializer):
+    created_projects = ProjectSerializer(many=True, source='creator.project_set', read_only=True)
+    backed_projects = ProjectSerializer(many=True, source='backer.project_set', read_only=True)
+    class Meta:
+        model = User 
+        fields = '__all__' 
+
+
 
 class CreatorSerializer(ModelSerializer):
     class Meta:
