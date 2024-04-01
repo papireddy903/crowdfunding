@@ -11,4 +11,3 @@ urlpatterns = [
     path("comments/",views.CommentsView.as_view(), name='comments'),
     path("comments/<str:title>", views.CommentDetail.as_view(),name='commentdetail'),
 ]
-
