@@ -256,3 +256,5 @@ def add_comment(request, pId):
         form = CommentForm()
 
     return render(request, 'project.html', {'form': form, 'project': project})
+
+# Cmment
