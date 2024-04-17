@@ -2,29 +2,36 @@
 
 {% block content %}
 
-  <h3>Featured Project</h3>
-  {% if featured_project and featured_project.creator.username != user.username %}
-    <h1><a href="{% url 'view_project' featured_project.id %}" style="text-decoration: None;">{{ featured_project.title }}</a></h1>
-    {% if featured_percentage %}
-      {% with percent=featured_percentage.0.1 %}
-        <p>{{ percent }}% funded</p>
-      {% endwith %}
+  <div class="featured-project">
+    <h3 class="project-title">Featured Project</h3>
+    {% if featured_project and featured_project.creator.username != user.username %}
+      <div class="project-card">
+        <h1><a href="{% url 'view_project' featured_project.id %}" class="project-link">{{ featured_project.title }}</a></h1>
+        {% if featured_percentage %}
+          {% with percent=featured_percentage.0.1 %}
+            <p class="project-funding">{{ percent }}% funded</p>
+          {% endwith %}
+        {% endif %}
+      </div>
+    {% else %}
+      <p class="no-project">No featured project available.</p>
     {% endif %}
-  {% else %}
-    <p>No featured project available.</p>
-  {% endif %}
+  </div>
 
   <hr>
 
-  <h3>Recommended for you</h3>
-  {% for project_id, project_percentage in percentage_funded %}
-    {% for project in remaining_projects %}
-      {% if project.id == project_id and project.creator.username != user.username %}
-        <h1><a href="{% url 'view_project' project_id %}" style="text-decoration: None;">{{ project.title }}</a></h1>
-        <p>{{ project_percentage }}% funded</p>
-        <br>
-      {% endif %}
+  <div class="recommended-projects">
+    <h3 class="project-title">Recommended for you</h3>
+    {% for project_id, project_percentage in percentage_funded %}
+      {% for project in remaining_projects %}
+        {% if project.id == project_id and project.creator.username != user.username %}
+          <div class="project-card">
+            <h1><a href="{% url 'view_project' project_id %}" class="project-link">{{ project.title }}</a></h1>
+            <p class="project-funding">{{ project_percentage }}% funded</p>
+          </div>
+        {% endif %}
+      {% endfor %}
     {% endfor %}
-  {% endfor %}
+  </div>
 
 {% endblock %}

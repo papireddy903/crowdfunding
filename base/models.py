@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from datetime import date
+from django.conf import settings 
 
 class Backer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
@@ -41,6 +42,16 @@ class Project(models.Model):
     current_funding = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
+    photo = models.ImageField(upload_to='images/',blank=True, null=True)
+
+    @property 
+    def Photourl(self):
+        if self.photo:
+            return self.photo.url
+        else:
+            return settings.MEDIA_URL + 'default_img.jpg'
+        
+    
 
     @property
     def remaining_time(self):

@@ -1,26 +1,33 @@
 from django import forms 
-from .models import Comment
+from .models import *
 
 class FundingForm(forms.Form):
     funding_amount = forms.DecimalField(label='Funding Amount', min_value=0)
 
 
-class AddProjectForm(forms.Form):
+class AddProjectForm(forms.ModelForm):
     TYPE_CHOICES = [
         ('technology', 'Technology'),
-        ('arts', 'Arts'),
-        ('comics','Comics'),
-        ('games','Games'),
-        ('publishing','Publishing'),
+        ('art', 'Art'),
+        ('comics', 'Comics'),
+        ('games', 'Games'),
+        ('publishing', 'Publishing'),
     ]
-    project_name = forms.CharField(label='Project Name', max_length=100)
-    description = forms.CharField(widget=forms.Textarea)
-    funding_goal = forms.DecimalField(label='Funding Goal', min_value=0)
+    
     project_type = forms.ChoiceField(choices=TYPE_CHOICES, label='Project Type')
-    # creator = forms.CharField(label="Enter your Name", max_length=100)
-    enddate = forms.DateField(label='End Date', widget=forms.TextInput(attrs={'type': 'date'}))
+    photo = forms.ImageField(label="Upload Photo", required=False)
 
+    class Meta:
+        model = Project
+        fields = ['title', 'description', 'funding_goal', 'project_type', 'photo', 'end_date']
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 4}),
+            'end_date': forms.TextInput(attrs={'type': 'date'}),
+        }
 
+    def clean_project_name(self):
+        title = self.cleaned_data['title']
+        return title
 
 class CommentForm(forms.ModelForm):
     class Meta:

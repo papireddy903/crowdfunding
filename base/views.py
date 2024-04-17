@@ -124,7 +124,7 @@ def fund_project(request, pId):
 
 
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def list_projects(request):
     user = request.user.username 
     all_projects = Project.objects.all()
@@ -193,14 +193,15 @@ def view_project(request, pId):
 @login_required(login_url='login')
 def add_project(request):
     if request.method == "POST":
-        form = AddProjectForm(request.POST)
+        form = AddProjectForm(request.POST, request.FILES)
         if form.is_valid():
-            project_name = form.cleaned_data["project_name"]
+            title = form.cleaned_data["title"]
             description = form.cleaned_data["description"]
             funding_goal = form.cleaned_data["funding_goal"]
             project_type = form.cleaned_data["project_type"]
             creator_name = request.user.username
-            enddate = form.cleaned_data["enddate"]
+            photo = form.cleaned_data["photo"]
+            end_date = form.cleaned_data["end_date"]
             print("creatorname: ",creator_name)
 
             try:
@@ -210,13 +211,14 @@ def add_project(request):
 
 
             new_project = Project(
-                title=project_name,
+                title=title,
                 description=description,
                 funding_goal=funding_goal,
                 current_funding=0,
                 project_type=project_type,
                 start_date=timezone.now(),
-                end_date=enddate,
+                photo = photo,
+                end_date=end_date,
                 creator=Creator.objects.get_or_create(user=creator)[0]
             )
             new_project.save()

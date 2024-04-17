@@ -126,3 +126,36 @@ body {
 .add-project-form button:hover {
   background-color: #0056b3;
 }
+
+/* Styles for project cards */
+.project-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.project-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.project-link {
+  text-decoration: none;
+  color: #333;
+}
+
+.project-funding {
+  font-size: 14px;
+  color: #666;
+}
+
+.no-project {
+  font-size: 14px;
+  color: #999;
+}
+
+/* Styles for recommended projects */
+.recommended-projects {
+  margin-top: 40px;
+}

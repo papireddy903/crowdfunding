@@ -6,6 +6,10 @@
     <p>Project Type: {{ project.project_type }}</p>
     <p>Funding Goal: ₹{{ project.funding_goal }}</p>
     <p>Current Funding: ₹{{ project.current_funding }}</p>
+    <div>
+        <p>Image here</p>
+        <img src="{{ project.Photourl }}" alt="{{ project.title }}">
+    </div>
     {% if project.creator.user.username != request.user.username %}
         <p>Creator: {{ project.creator.user.username }}</p>
         <p>{{ project.remaining_time }}</p>
