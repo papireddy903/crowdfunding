@@ -13,6 +13,7 @@
 
       {% block content %}
 
+      {% if remaining_projects %}
       <div class="body">
         <div class="card-container--2">
         {% for project_id, project_percentage in percentage_funded %}
@@ -27,13 +28,13 @@
               <h2>{{ project.title }}</h2>
 
               <p>{{ project.creator.user.username }}</p>
-              <span><i class='bx bx-time-five'></i>{{ project.remaining_time }} </span>
-              <span>percentage funded</span>
+              <span><i class='bx bx-time-five'></i>{{ project.remaining_time }} </span><br>
+              <span>{{project_percentage}}% funded</span>
             </div>
 
             <div class="card--hover">
               <h2>{{ project.title }}</h2>
-              <p>Project Description</p>
+              <p>{{project.description}}</p>
               <p class="link">Click to see project</p>
             </div>
           </a>
@@ -44,5 +45,6 @@
             {% endfor %}
       </div>
     </div>
+    {% endif %}
         
 {% endblock %}

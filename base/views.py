@@ -21,10 +21,26 @@ from .models import Project
 # from rest_framework.response import Response 
 
 from .forms import CommentForm
+# from simplegmail import Gmail
 
 
+# gmail = Gmail()
 
+# sender_mail = "donate.brightfuture1@gmail.com"
+
+# def send_email(recipient, subject, message):
+#     message = message.replace("\n", "<br>")
+#     params = {
+#         "to": recipient,
+#         "sender": sender_mail,
+#         "subject": subject,
+#         "msg_html": message,
+#         "signature": True
+#     }
+
+#     message = gmail.send_message(**params)  
     
+#     print("Message sent successfully")
 
 
 def loginPage(request):
@@ -43,6 +59,7 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
+            # send_email(user.)
             return redirect("index") 
         else:
             messages.error(request, 'Username or Password does not exist',{"page":"login"})
