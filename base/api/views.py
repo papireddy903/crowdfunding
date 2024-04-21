@@ -3,8 +3,11 @@ from rest_framework.serializers import ModelSerializer
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from .serializer import BackerSerializer, UserSerializer, ProjectSerializer, CreatorSerializer, CommentSerializer
-
-
+import json 
+import pandas as pd 
+from django.conf import settings 
+import os 
+from django.http import HttpResponse 
 
 class UsersView(APIView):
     def get(self, request):
@@ -58,3 +61,5 @@ class CommentDetail(APIView):
         comments = Comment.objects.filter(project__title = title)
         serializer = CommentSerializer(comments, many=True) 
         return Response(serializer.data) 
+
+

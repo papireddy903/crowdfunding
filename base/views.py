@@ -21,7 +21,7 @@ from .models import Project
 # from rest_framework.response import Response 
 
 from .forms import CommentForm
-    
+
 
 
     
@@ -258,3 +258,4 @@ def add_comment(request, pId):
         form = CommentForm()
 
     return render(request, 'project.html', {'form': form, 'project': project})
+

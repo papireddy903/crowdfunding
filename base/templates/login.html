@@ -1,24 +1,20 @@
 {% extends 'base_generic.html' %}
 
 {% block login %}
-
-
-<div>
-    <form method="POST" action="{% url 'login' %}">
+<div class="login-container">
+    <form method="POST" action="{% url 'login' %}" class="login-form">
         {% csrf_token %}
-        <label for="id_username">Username:</label>
-        <input type="text" name="username" id="id_username" placeholder="Enter username" required>
-        <label for="id_password">Password:</label>
-        <input type="password" name="password" id="id_password" placeholder="Enter Password" required>
-        <input type="submit" value="Login">
+        <div class="form-group">
+            <input type="text" class="form-control" name="username" placeholder="Username" required>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
     </form>
-    <p>Haven't signed up yet?</p>
-    <a href="{% url 'register' %}">Sign up</a>
+    <div class="signup-link">
+        <p>Haven't signed up yet? <a href="{% url 'register' %}">Sign up</a></p>
+        
+    </div>
 </div>
-
-
-
-
-
-
 {% endblock %}

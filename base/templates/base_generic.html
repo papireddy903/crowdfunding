@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
 </head>
 <body>
-    <nav class="container-fluid">
+    <!-- <nav class="container-fluid">
         <div class="nav-link">
             <a class="nav-link--1" href="{% url 'all_projects' %}">Discover Projects</a>
             <a class="nav-link--2" href="{% url 'add_project' %}">Add a Project</a>
@@ -38,7 +38,9 @@
         <a href="{% url 'project_type' 'arts' %}" style="margin-right: 10px; text-decoration:None;">Arts</a>
         <a href="{% url 'project_type' 'comics' %}" style="margin-right: 10px; text-decoration:None;">Comics</a>
         <a href="{% url 'project_type' 'publishing' %}" style="margin-right: 10px; text-decoration:None;">Publishing</a>
-    </div>
+    </div> -->
+
+    {% include 'navbar.html' %}
 
     
     

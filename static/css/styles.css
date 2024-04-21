@@ -159,3 +159,59 @@ body {
 .recommended-projects {
   margin-top: 40px;
 }
+
+.title-img {
+  margin-left: 200px;
+  width: 370px;
+  height: 30px;
+}
+
+.btn-outline-success{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.registration-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.registration-form p {
+  margin: 20px 0;
+}
+
+.registration-form input[type="text"],
+.registration-form input[type="password"],
+.registration-form input[type="email"] {
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  display: block;
+}
+
+.register-btn { /* Unique class for button */
+  background-color: #5cb85c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%; /* Make the button full width */
+}
+
+.register-btn:hover {
+  background-color: #4cae4c;
+}
+
+/* Specific error message styling within form */
+.registration-form .errorlist {
+  color: red;
+  font-size: 0.9em;
+}
