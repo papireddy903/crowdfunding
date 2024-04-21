@@ -15,6 +15,7 @@ class AddProjectForm(forms.ModelForm):
     ]
     
     project_type = forms.ChoiceField(choices=TYPE_CHOICES, label='Project Type')
+    # photo = forms.ImageField(label="Upload Photo", required=False)
     photo = forms.ImageField(label="Upload Photo", required=False)
 
     class Meta:

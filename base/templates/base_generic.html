@@ -11,6 +11,11 @@
     <!-- Add additional CSS in static file -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/project.css' %}">
+    <link rel="stylesheet" href="{% static  'css/profile.css' %}">
+
+    {% block projects_css %} {% endblock %}
+    
 </head>
 <body>
     <!-- <nav class="container-fluid">

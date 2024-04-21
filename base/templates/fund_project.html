@@ -1,12 +1,28 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Fund Project</h1>
-  <p>Project: {{ project.title }}</p>
-  <form method="post" action="{% url 'fund_project' project.id %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Fund Project">
-  </form>
-  <a href="{% url 'index' %}">Back to Projects</a>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>Fund Project</h1>
+        </div>
+        <div class="card-body">
+          <p class="card-text">Project: {{ project.title }}</p>
+          <form method="post" action="{% url 'fund_project' project.id %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="d-flex justify-content-center"> <!-- Flex container to center the button -->
+              <button type="submit" class="btn btn-success btn-lg">Fund Project</button>
+            </div>
+          </form>
+          <div class="d-flex justify-content-center mt-3"> <!-- Additional Flex container to center the link -->
+            <a href="{% url 'index' %}" class="btn btn-link">Back to Projects</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -61,13 +61,14 @@ class Project(models.Model):
         hours, remainder = divmod(time_difference.seconds, 3600)
         minutes, _ = divmod(remainder, 60)
         if days > 0:
-            return f"{days} {'day' if days == 1 else 'days'} to go"
+            return f"{days} {'day' if days == 1 else 'days'} left"
         elif hours > 0:
-            return f"{hours} {'hour' if hours == 1 else 'hours'} to go"
+            return f"{hours} {'hour' if hours == 1 else 'hours'} left"
         elif minutes > 0:
-            return f"{minutes} {'minute' if minutes == 1 else 'minutes'} to go"
+            return f"{minutes} {'minute' if minutes == 1 else 'minutes'} left"
         else:
             return "Less than a minute to go"
+
 
     def __str__(self):
         return self.title 

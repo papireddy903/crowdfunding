@@ -1,37 +1,48 @@
 {% extends "base_generic.html" %}
 
-{% block content %}
+{% block projects_css %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/projects.css' %}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
+    {%endblock%}
 
-  <div class="featured-project">
-    <h3 class="project-title">Featured Project</h3>
-    {% if featured_project and featured_project.creator.username != user.username %}
-      <div class="project-card">
-        <h1><a href="{% url 'view_project' featured_project.id %}" class="project-link">{{ featured_project.title }}</a></h1>
-        {% if featured_percentage %}
-          {% with percent=featured_percentage.0.1 %}
-            <p class="project-funding">{{ percent }}% funded</p>
-          {% endwith %}
+      {% block content %}
+
+      <div class="body">
+        <div class="card-container--2">
+        {% for project_id, project_percentage in percentage_funded %}
+          {% for project in remaining_projects %}
+          {% if project.id == project_id and project.creator.username != user.username %}
+        <div class="card--2">
+          <a href="{% url 'view_project' project_id %}">
+            <div class="card--display">
+              <!-- add thumbnail pic or something below -->
+              <img class="card-image" src={{project.Photourl}} alt="thumbnail for the project">
+
+              <h2>{{ project.title }}</h2>
+
+              <p>{{ project.creator.user.username }}</p>
+              <span><i class='bx bx-time-five'></i>{{ project.remaining_time }} </span>
+              <span>percentage funded</span>
+            </div>
+
+            <div class="card--hover">
+              <h2>{{ project.title }}</h2>
+              <p>Project Description</p>
+              <p class="link">Click to see project</p>
+            </div>
+          </a>
+          <div class="card--border"></div>
+        </div>
         {% endif %}
+            {% endfor %}
+            {% endfor %}
       </div>
-    {% else %}
-      <p class="no-project">No featured project available.</p>
-    {% endif %}
-  </div>
-
-  <hr>
-
-  <div class="recommended-projects">
-    <h3 class="project-title">Recommended for you</h3>
-    {% for project_id, project_percentage in percentage_funded %}
-      {% for project in remaining_projects %}
-        {% if project.id == project_id and project.creator.username != user.username %}
-          <div class="project-card">
-            <h1><a href="{% url 'view_project' project_id %}" class="project-link">{{ project.title }}</a></h1>
-            <p class="project-funding">{{ project_percentage }}% funded</p>
-          </div>
-        {% endif %}
-      {% endfor %}
-    {% endfor %}
-  </div>
-
+    </div>
+        
 {% endblock %}

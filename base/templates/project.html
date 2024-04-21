@@ -1,32 +1,83 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>{{ project.title }}</h1>
-    <p>Project Description: {{ project.description }}</p>
-    <p>Project Type: {{ project.project_type }}</p>
-    <p>Funding Goal: ₹{{ project.funding_goal }}</p>
-    <p>Current Funding: ₹{{ project.current_funding }}</p>
-    <div>
-        <p>Image here</p>
-        <img src="{{ project.Photourl }}" alt="{{ project.title }}">
+<style>
+    .comment-header .comment-author {
+        font-weight: bold;
+    }
+     .comment-header .comment-date-d {
+        color: lightyellow;
+    } 
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center"> <!-- Centering title and description -->
+            <h1 style="color: #6B3E26; font-weight: bold; text-transform: uppercase; letter-spacing: 2px;">{{ project.title }}</h1> <!-- Brown color (#6B3E26), bold, uppercase, and increased letter spacing -->
+            <p style="font-size: 18px;">{{ project.description }}</p> <!-- Increased font size -->
+            <hr>
+        </div>
+        
+        
+        
     </div>
-    {% if project.creator.user.username != request.user.username %}
-        <p>Creator: {{ project.creator.user.username }}</p>
-        <p>{{ project.remaining_time }}</p>
-        <a href="{% url 'fund_project' project.id %}" class="btn btn-primary">Fund this project</a>
-    {% endif %}
-    <hr>
-    <h2>Comments</h2>
-    {% for comment in project.comments.all %}
-        <p><strong>{{ comment.commenter_name }}</strong>: {{ comment.comment_body }}</p>
-        <p><small>{{ comment.date_added }}</small></p>
-    {% empty %}
-        <p>No comments yet.</p>
-    {% endfor %}
-    <form method="post" action="{% url 'add_comment' project.id %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Add Comment</button>
-    </form>
-    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ project.Photourl }}" alt="{{ project.title }}" class="img-fluid">
+        </div>
+        <div class="col-md-6">
+            <h3>Project Details</h3>
+            <ul class="list-unstyled">
+                <li><strong>Project Type:</strong> {{ project.project_type }}</li>
+                <li><strong>End Date:</strong> {{ project.end_date }}</li>
+                <li><strong>Funding Goal:</strong> ₹{{ project.funding_goal }}</li>
+                <li><strong>Current Funding:</strong> ₹{{ project.current_funding }}</li>
+                <!-- Add more project details here if needed -->
+            </ul>
+            {% if project.creator.user.username != request.user.username %}
+            <hr>
+            <div class="creator-info" style="margin-bottom: 20px;"> <!-- Added margin-bottom -->
+                <p><strong>Creator:</strong> {{ project.creator.user.username }}</p>
+                <p><strong>Remaining Time:</strong> {{ project.remaining_time }}</p>
+                <a href="{% url 'fund_project' project.id %}" class="btn btn-success">Fund this project</a>
+            </div>
+            {% endif %}
+            
+            <div class="progress">
+                <div class="progress-bar bg-brown" role="progressbar" style="width: {{ progress_width }}%;" aria-valuenow="{{ project.current_funding }}" aria-valuemin="0" aria-valuemax="{{ project.funding_goal }}"></div> <!-- Changed progress bar color -->
+            </div>
+            
+            
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="comment-section">
+                <h2>Comments</h2>
+                <div class="comments">
+                    {% for comment in project.comments.all %}
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">{{ comment.commenter_name }}</span>
+                            <span class="comment-date-d">{{ comment.date_added | timesince }} ago</span>
+                        </div>
+                        <div class="comment-body">{{ comment.comment_body }}</div>
+                        <!-- Add reply/like buttons here if needed -->
+                    </div>
+                    {% empty %}
+                    <p>No comments yet.</p>
+                    {% endfor %}
+                </div>
+                <hr>
+                <form method="post" action="{% url 'add_comment' project.id %}" class="comment-form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Add Comment</button>
+                </form>
+            </div>
+    </div>
+</div>
+
+
+
+
 {% endblock %}

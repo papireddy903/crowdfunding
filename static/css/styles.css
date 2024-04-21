@@ -1,87 +1,87 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap");
+
 body {
-    background-color: white;
+  background-color: white;
 }
 
-.container-fluid{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1em; 
-    gap: 1em;
+.container-fluid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1em;
+  gap: 1em;
 }
-
 
 .nav-title {
-    text-align: center;
-    flex-grow: 1; 
+  text-align: center;
+  flex-grow: 1;
 }
 
 .nav-link--1,
 .nav-link--2 {
-    text-decoration: none;
-    color: black;
+  text-decoration: none;
+  color: black;
 }
 
 .login-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .login-heading {
-    font-size: 24px;
-    color: #333;
-  }
-  
-  .login-form {
-    margin-top: 20px;
-  }
-  
-  .login-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .login-form input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .login-button {
-    background-color: #3498db;
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .login-button:hover {
-    background-color: #267bb5;
-  }
-  
-  .register-link {
-    margin-top: 15px;
-    color: #555;
-  }
-  
-  .register-link a {
-    color: #3498db;
-    text-decoration: none;
-  }
-  
-  .register-link a:hover {
-    text-decoration: underline;
-  }
-  
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-heading {
+  font-size: 24px;
+  color: #333;
+}
+
+.login-form {
+  margin-top: 20px;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #555;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.login-button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #267bb5;
+}
+
+.register-link {
+  margin-top: 15px;
+  color: #555;
+}
+
+.register-link a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
 
 .add-project-container {
   max-width: 600px;
@@ -113,7 +113,7 @@ body {
 }
 
 .add-project-form textarea {
-  resize: vertical; 
+  resize: vertical;
 }
 
 .add-project-form button {
@@ -166,7 +166,7 @@ body {
   height: 30px;
 }
 
-.btn-outline-success{
+.btn-outline-success {
   margin-left: 5px;
   margin-right: 5px;
 }
@@ -196,7 +196,8 @@ body {
   display: block;
 }
 
-.register-btn { /* Unique class for button */
+.register-btn {
+  /* Unique class for button */
   background-color: #5cb85c;
   color: white;
   border: none;
@@ -215,3 +216,48 @@ body {
   color: red;
   font-size: 0.9em;
 }
+
+.companies-header {
+  text-align: center;
+  margin-block: 30px;
+  color: var(--primary-text-color);
+}
+.flex {
+  display: flex;
+  align-items: center;
+}
+.header-left {
+  max-width: 40vw;
+}
+.get-started-btn {
+  margin-top: 20px;
+  text-decoration:none;
+  display: inline-block;
+}
+.primary-button {
+  background-color: var(--accent-color);
+  border-radius: 6px;
+  font-weight: 700;
+  color: white !important;
+  padding: 12px 24px;
+  box-shadow: 0 0 2px var(--secondary-text-color);
+  transition: 0.2s ease-out;
+  text-align: center;
+}
+.header-right img {
+  width: 600px;
+  border-radius: 10px;
+}
+
+:root {
+  --primary-text-color: #183b56;
+  --secondary-text-color: #577592;
+  --accent-color: #2294ed;
+  --accent-color-dark: #1d69a3;
+  --padding-inline-section: 20px;
+}
+
+.hero-container{
+  margin-top: 10px;
+  margin-bottom: 10px;
+} 

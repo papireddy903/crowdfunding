@@ -1,14 +1,109 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+  {% load static %}
     <div class="hero" style="margin-top:10px; display: flex; flex-direction: row; justify-content: space-around; align-items: center; background-color: #f2f2f2; padding: 20px;">
         <div style="text-align: center; padding: 10px; border-radius: 10px; background-color: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
             <h5 style="font-size: 24px; color: #3498db; font-weight: bold;">{{total_projects}}</h5>
             <p style="font-size: 36px; color: #333;">Projects Funded</p>
         </div>
         <div style="text-align: center; padding: 10px; border-radius: 10px; background-color: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-            <h5 style="font-size: 24px; color: #e74c3c; font-weight: bold;">{{total_funding}}</h5>
+            <h5 style="font-size: 24px; color: #e74c3c; font-weight: bold;">${{total_funding}}</h5>
             <p style="font-size: 36px; color: #333;">towards creative work</p>
         </div>
     </div>
+
+    <header>
+      <div class="container header-section flex">
+          <div class="header-left">
+              <h1>Crowdfunding Made Easy</h1>
+              <p>Our platform simplifies the crowdfunding process, making it accessible to everyone. We provide the tools and support you need to turn your ideas into successful campaigns.</p>
+              <a href="#" class="primary-button get-started-btn">Get Started</a>
+          </div>
+          <div class="header-right">
+              <img src="{% static 'media/images/asset 12.jpeg' %}" alt="hero image">
+          </div>
+      </div>
+  </header>
+<div></div>
+    
+<div class="container hero-container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-sm-8 col-lg-6">
+        <!-- Section Heading-->
+        <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+          <h3>Our Creative <span> Team</span></h3>
+          <p>Individually, we are one drop. Together, we are an ocean</p>
+          <div class="line"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <!-- Single Advisor-->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+          <!-- Team Thumb-->
+          <div class="advisor_thumb"><img src="{% static 'media/images/photo.png'%}" alt="">
+            <!-- Social Info-->
+            <div class="social-info"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a></div>
+          </div>
+          <!-- Team Details-->
+          <div class="single_advisor_details_info">
+            <h6>Papireddy E</h6>
+            <p class="designation">Django Developer</p>
+          </div>
+        </div>
+      </div>
+      <!-- Single Advisor-->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+          <!-- Team Thumb-->
+          <div class="advisor_thumb"><img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+            <!-- Social Info-->
+            <div class="social-info"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a></div>
+          </div>
+          <!-- Team Details-->
+          <div class="single_advisor_details_info">
+            <h6>Chaitanya G</h6>
+            <p class="designation">Frontend Developer</p>
+          </div>
+        </div>
+      </div>
+      <!-- Single Advisor-->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
+          <!-- Team Thumb-->
+          <div class="advisor_thumb"><img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
+            <!-- Social Info-->
+            <div class="social-info"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a></div>
+          </div>
+          <!-- Team Details-->
+          <div class="single_advisor_details_info">
+            <h6>Pranav Krishna</h6>
+            <p class="designation">Full Stack Developer</p>
+          </div>
+        </div>
+      </div>
+      <!-- Single Advisor-->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="single_advisor_profile wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+          <!-- Team Thumb-->
+          <div class="advisor_thumb"><img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="">
+            <!-- Social Info-->
+            <div class="social-info"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a></div>
+          </div>
+          <!-- Team Details-->
+          <div class="single_advisor_details_info">
+            <h6>Sai Keerthan</h6>
+            <p class="designation">Django Developer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+
+
 {% endblock %}

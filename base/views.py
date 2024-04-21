@@ -91,7 +91,7 @@ def index(request):
     'total_funding':total_funding
     }
 
-    return render(request, 'home.html', context)
+    return render(request, 'index.html', context)
 
 
 
@@ -146,11 +146,11 @@ def list_projects(request):
 
             percentage_funded = [[project.id, int(100 * project.current_funding / project.funding_goal)] for project in projects_excluded_user]
 
-            remaining_projects = projects_excluded_user.exclude(id=highest_funded_project.id)
+            # remaining_projects = projects_excluded_user.exclude(id=highest_funded_project.id)
 
             context = {
-                "featured_project": highest_funded_project,
-                "remaining_projects": remaining_projects,
+                # "featured_project": highest_funded_project
+                "remaining_projects": projects_excluded_user,
                 "percentage_funded": percentage_funded,
                 "featured_percentage": featured_percentage
             }
@@ -188,7 +188,11 @@ def list_projects(request):
 
 def view_project(request, pId):
     project = get_object_or_404(Project, id=pId)
-    return render(request, "project.html", {'project': project})
+
+    # Calculate progress bar width
+    progress_width = (project.current_funding / project.funding_goal) * 100
+
+    return render(request, "project.html", {'project': project, 'progress_width': progress_width})
 
 @login_required(login_url='login')
 def add_project(request):
@@ -258,4 +262,10 @@ def add_comment(request, pId):
         form = CommentForm()
 
     return render(request, 'project.html', {'form': form, 'project': project})
+
+
+def user_profile(request,pk):
+    user = User.objects.get(id=pk)
+    print(user)
+    return render(request,'user_profile.html', {'user':user})
 
