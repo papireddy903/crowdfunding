@@ -36,7 +36,7 @@
             {% if project.creator.user.username != request.user.username %}
             <hr>
             <div class="creator-info" style="margin-bottom: 20px;"> <!-- Added margin-bottom -->
-                <p><strong>Creator:</strong> {{ project.creator.user.username }}</p>
+                <p><strong>Creator:</strong> <a style="text-decoration: None;" href="{% url 'user_profile' pk=project.creator.user.id %}">{{ project.creator.user.username }}</a></p>
                 <p><strong>Remaining Time:</strong> {{ project.remaining_time }}</p>
                 <a href="{% url 'fund_project' project.id %}" class="btn btn-success">Fund this project</a>
             </div>

@@ -263,7 +263,7 @@ def project_type(request, ptype):
     print(list(projects_type_list))
     return render(request, 'project_type.html', {'projects_type_list': projects_type_list})
 
-
+@login_required(login_url='login')
 def add_comment(request, pId):
     project = Project.objects.get(id=pId)
     user = request.user.username 

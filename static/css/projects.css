@@ -107,5 +107,8 @@
   
   .card-image {
     width: 100%; /* Make image fill container */
-    height: auto; /* Maintain aspect ratio */
+    max-height: 250px; /* Maintain aspect ratio */
+    border: 2px solid darkslategrey;
+    object-fit: cover;
+    border-radius: 10px;
   }

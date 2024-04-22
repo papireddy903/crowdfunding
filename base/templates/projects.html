@@ -15,6 +15,7 @@
 
       {% if remaining_projects %}
       <div class="body">
+        <h4>Explore <span style="color: rgb(0, 158, 116);">{{remaining_projects | length}} Projects</span></h4>
         <div class="card-container--2">
         {% for project_id, project_percentage in percentage_funded %}
           {% for project in remaining_projects %}
