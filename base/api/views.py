@@ -17,8 +17,8 @@ class ProjectsView(APIView):
         return Response(serializer.data) 
 
 class ProjectDetail(APIView):
-    def get(self, request, title):
-        projects = Project.objects.filter(title=title) 
+    def get(self, request, pk):
+        projects = Project.objects.filter(id=pk) 
         serializer = ProjectSerializer(projects, many=True) 
         return Response(serializer.data) 
 

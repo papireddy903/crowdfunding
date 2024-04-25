@@ -1,0 +1,53 @@
+
+
+
+
+.registration-form .errorlist {
+    color: red;
+    font-size: 0.9em;
+  }
+  
+  .companies-header {
+    text-align: center;
+    margin-block: 30px;
+    color: var(--primary-text-color);
+  }
+  .flex {
+    display: flex;
+    align-items: center;
+  }
+  .header-left {
+    max-width: 40vw;
+  }
+  .get-started-btn {
+    margin-top: 20px;
+    text-decoration:none;
+    display: inline-block;
+  }
+  .primary-button {
+    background-color: var(--accent-color);
+    border-radius: 6px;
+    font-weight: 700;
+    color: white !important;
+    padding: 12px 24px;
+    box-shadow: 0 0 2px var(--secondary-text-color);
+    transition: 0.2s ease-out;
+    text-align: center;
+  }
+  .header-right img {
+    width: 600px;
+    border-radius: 10px;
+  }
+  
+  :root {
+    --primary-text-color: #183b56;
+    --secondary-text-color: #577592;
+    --accent-color: #2294ed;
+    --accent-color-dark: #1d69a3;
+    --padding-inline-section: 20px;
+  }
+  
+  .hero-container{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  } 

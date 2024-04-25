@@ -1,0 +1,63 @@
+/* ProjectDetail.css */
+.container {
+    padding: 20px;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .h1 {
+    color: #6B3E26;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  
+  .p {
+    font-size: 18px;
+  }
+  
+  .img-fluid {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .list-unstyled {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .list-unstyled li {
+    margin-bottom: 10px;
+  }
+  
+  .progress {
+    height: 20px;
+    background-color: #eee;
+  }
+  
+  .progress-bar {
+    background-color: #6B3E26;
+    height: 100%;
+  }
+  
+  .btn-success {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }
+  
+  .btn-success:hover {
+    background-color: darkgreen;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  

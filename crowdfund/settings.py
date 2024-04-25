@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os 
+from environ import Env 
+
+env = Env()
+Env.read_env()
+ENVIRONMENT = env('ENVIRONMENT', default='production')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,12 +29,11 @@ LOGOUT_REDIRECT_URL = 'index'
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-lzapzk#6eem&v-a$-y=l-dtqh2&86591kzj!om1w&d-$qe!a7_"
+# SECRET_KEY = "django-insecure-lzapzk#6eem&v-a$-y=l-dtqh2&86591kzj!om1w&d-$qe!a7_"
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -61,6 +65,9 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173'
+]
 ROOT_URLCONF = "crowdfund.urls"
 
 TEMPLATES = [
@@ -95,10 +102,10 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'Crowdfunding',
+#         'NAME': 'crowdfunding',
 #         'USER': 'root',
 #         'PASSWORD': 'P@pireddy340',
-#         'HOST': 'localhost',
+#         'HOST': '10.1.75.159',
 #         'PORT': '3306',
 #     }
 # }
