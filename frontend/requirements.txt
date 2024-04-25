@@ -1,2 +1,6 @@
 react-bootstrap bootstrap
 react-router-dom
+@mui/material @emotion/react @emotion/styled
+mdb-react-ui-kit
+
+@fortawesome/fontawesome-free

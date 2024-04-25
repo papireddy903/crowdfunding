@@ -1,53 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap");
 
+:root {
+  --primary-text-color: #183b56;
+  --secondary-text-color: #577592;
+  --accent-color: #2294ed;
+  --accent-color-dark: #1d69a3;
+  --padding-inline-section: 20px;
+}
 
+body {
+  font-family: 'Roboto', sans-serif;
+}
 
+.header-section {
+  display: flex;
+  align-items: center; /* Center items vertically */
+  justify-content: space-between; /* Space between the text and image */
+  padding: 20px var(--padding-inline-section);
+  margin-bottom: 20px; /* Additional space below the header */
+}
 
-.registration-form .errorlist {
-    color: red;
-    font-size: 0.9em;
-  }
-  
-  .companies-header {
-    text-align: center;
-    margin-block: 30px;
-    color: var(--primary-text-color);
-  }
-  .flex {
-    display: flex;
-    align-items: center;
-  }
-  .header-left {
-    max-width: 40vw;
-  }
-  .get-started-btn {
-    margin-top: 20px;
-    text-decoration:none;
-    display: inline-block;
-  }
-  .primary-button {
-    background-color: var(--accent-color);
-    border-radius: 6px;
-    font-weight: 700;
-    color: white !important;
-    padding: 12px 24px;
-    box-shadow: 0 0 2px var(--secondary-text-color);
-    transition: 0.2s ease-out;
-    text-align: center;
-  }
-  .header-right img {
-    width: 600px;
-    border-radius: 10px;
-  }
-  
-  :root {
-    --primary-text-color: #183b56;
-    --secondary-text-color: #577592;
-    --accent-color: #2294ed;
-    --accent-color-dark: #1d69a3;
-    --padding-inline-section: 20px;
-  }
-  
-  .hero-container{
-    margin-top: 10px;
-    margin-bottom: 10px;
-  } 
+.header-left {
+  max-width: 40vw; /* Limits width to 40% of the viewport width */
+  flex: 1; /* Allows flex growth to occupy available space */
+}
+
+.header-right {
+  display: flex;
+  justify-content: flex-end; /* Aligns the image to the right */
+  flex: 1; /* Allows flex growth to occupy available space */
+}
+
+.header-right img {
+  max-width: 100%; /* Makes the image responsive */
+  height: auto; /* Maintains aspect ratio */
+  border-radius: 10px;
+}
+
+.primary-button {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 24px;
+  font-weight: 700;
+  text-decoration: none; /* Removes underline from links styled as buttons */
+  box-shadow: 0 0 2px var(--secondary-text-color);
+  transition: background-color 0.3s ease;
+  display: inline-block; /* Ensures the link behaves like a button */
+}
+
+.primary-button:hover {
+  background-color: var(--accent-color-dark); /* Darker on hover */
+  color: white; /* Ensures text color remains white on hover */
+}
+
+.companies-header {
+  text-align: center;
+  margin-block: 30px; /* Vertical margin before and after the header */
+  color: var(--primary-text-color);
+  font-family: 'Poppins', sans-serif; /* Applies Poppins for headers */
+}
+
+.flex {
+  display: flex;
+  align-items: center; /* Ensures items are centered vertically */
+}
+
+.get-started-btn {
+  margin-top: 20px; /* Space above the button */
+}

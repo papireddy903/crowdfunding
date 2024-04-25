@@ -50,6 +50,14 @@ class Project(models.Model):
             return self.photo.url
         else:
             return settings.MEDIA_URL + 'default_img.jpg'
+    
+    @property 
+    def percentage_funded(self):
+        try:
+            return int(100 * self.current_funding / self.funding_goal)
+        except:
+            return 0
+
         
     
 
