@@ -18,6 +18,7 @@ class Backer(models.Model):
 class Creator(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     bio = models.TextField(null=True, blank=True, default=None)
+    fund_collected = models.DecimalField(default=0,max_digits=10,decimal_places=2,null=True, blank=True)
 
     def __str__(self):
         return self.user.username
@@ -75,7 +76,7 @@ class Project(models.Model):
         elif minutes > 0:
             return f"{minutes} {'minute' if minutes == 1 else 'minutes'} left"
         else:
-            return "Less than a minute to go"
+            return "Due date ended"
 
 
     def __str__(self):

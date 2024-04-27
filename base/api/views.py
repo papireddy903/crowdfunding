@@ -12,6 +12,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
+from django.utils.timezone import now
+from django.db.models import F, Q
 
 @method_decorator(csrf_exempt, name='dispatch')
 class LoginAPIView(APIView):
@@ -35,8 +37,19 @@ class FundAPIView(APIView):
         try:
             project = Project.objects.get(id=pk)
             print(project)
-            funding_amount = Decimal(request.data.get('funding_amount', 0))
-            project.current_funding += funding_amount
+            print(request.data.get('funding_amount'))
+            print("post")
+            # project = get_object_or_404(Project, pk=pk)
+            creator = project.creator 
+            print(creator)
+            print(project.percentage_funded)
+            if (project.percentage_funded >= 100):
+                creator.fund_collected += project.current_funding
+             
+            creator.save()
+            print(project)
+            
+            project.current_funding += Decimal(request.data.get('funding_amount'))
             project.save()
             print(project.current_funding)
             return Response({"message": "Project successfully funded"}, status=200)
@@ -66,7 +79,13 @@ class UsersView(APIView):
 class ProjectsView(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
-        projects = Project.objects.all() 
+        # projects = Project.objects.all()
+        today = now().date()
+
+        # Filter projects where the end date has not passed or the funding is at least 100%
+        projects = Project.objects.filter(
+            Q(end_date__gte=today) | Q(current_funding__gte=F('funding_goal'))
+        ) 
         serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data) 
 
@@ -116,5 +135,4 @@ class CommentDetail(APIView):
         comments = Comment.objects.filter(project__title = title)
         serializer = CommentSerializer(comments, many=True) 
         return Response(serializer.data) 
-
 
