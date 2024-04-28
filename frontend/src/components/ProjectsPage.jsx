@@ -34,7 +34,7 @@ const ProjectsPage = () => {
           <p style={{ fontSize: '36px', color: '#333' }}>Projects Funded</p>
         </div>
         <div style={{ textAlign: 'center', padding: '10px', borderRadius: '10px', backgroundColor: 'white', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-          <h5 style={{ fontSize: '24px', color: '#e74c3c', fontWeight: 'bold' }}>₹{totalFunding}</h5>
+          <h5 style={{ fontSize: '24px', color: '#e74c3c', fontWeight: 'bold' }}>${totalFunding}</h5>
           <p style={{ fontSize: '36px', color: '#333' }}>towards creative work</p>
         </div>
       </div>

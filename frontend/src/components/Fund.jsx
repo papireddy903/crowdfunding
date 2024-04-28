@@ -18,7 +18,7 @@ const Fund = () => {
 
         try {
             // Simulate a funding request to the server
-            const response = await AxiosInstance.post(`/fund/${id}`, {
+            const response = await AxiosInstance.post(`/fund/${id}/`, {
                 funding_amount: fundingAmount
             });
             // Simulate a response check (adjust according to actual response structure)

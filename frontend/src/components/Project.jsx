@@ -24,7 +24,7 @@ const ProjectDetail = () => {
 
   // Format the currency correctly
   const formatCurrency = (value) => {
-    return `₹${Number(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
+    return `$${Number(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
   };
 
   const progressWidth = (project.percentage_funded || 0).toFixed(2);
