@@ -1,23 +1,32 @@
+// App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { AmountProvider } from './components/AmountContext'; // Import the AmountProvider
 import NavScrollExample from './components/NavScrollExample';
-// import Hero from './components/Hero';
 import Landing from './components/Landing';
 import ProjectsPage from './components/ProjectsPage';
 import Project from './components/Project';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import Fund from './components/Fund';
+import Funding_success from './components/Funding_success';
+import PayPalButton from './components/PayPalButton';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './hero.css';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import Fund from './components/Fund';
-import Funding_success from './components/Funding_success';
 
 function App() {
+  const clientId = "AeLpCh8VYNzm9tjwpk02UmD35CYRsqRwyXFOZRn81qAOWzoZyTLILrepeaaycTbZLSgo22emdeIFn1ra"; // Replace with your actual PayPal client ID
+
   return (
     <Router>
-      <AppContent />
+      <PayPalScriptProvider options={{ "client-id": clientId }}>
+        <AmountProvider>  
+          <AppContent />
+        </AmountProvider>
+      </PayPalScriptProvider>
     </Router>
   );
 }
@@ -36,6 +45,7 @@ function AppContent() {
         <Route path="/login" element={<Login />} />
         <Route path="/fund/:id" element={<Fund />} />
         <Route path="/success" element={<Funding_success />} />
+        <Route path="/checkout" element={<PayPalButton />} />  // PayPal button is now part of the checkout route
       </Routes>
     </>
   );

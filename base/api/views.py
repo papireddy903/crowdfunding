@@ -14,6 +14,13 @@ from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from django.utils.timezone import now
 from django.db.models import F, Q
+import requests
+from django.http import JsonResponse
+from django.core.cache import cache
+
+
+
+
 
 @method_decorator(csrf_exempt, name='dispatch')
 class LoginAPIView(APIView):
@@ -43,13 +50,16 @@ class FundAPIView(APIView):
             creator = project.creator 
             print(creator)
             print(project.percentage_funded)
-            if (project.percentage_funded >= 100):
-                creator.fund_collected += project.current_funding
              
-            creator.save()
             print(project)
             
             project.current_funding += Decimal(request.data.get('funding_amount'))
+            print(project.percentage_funded)
+            if (project.percentage_funded >= 100):
+                print('enter')
+                creator.fund_collected += Decimal(request.data.get('funding_amount'))
+                print('exit')
+            creator.save()
             project.save()
             print(project.current_funding)
             return Response({"message": "Project successfully funded"}, status=200)

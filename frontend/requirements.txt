@@ -4,3 +4,4 @@ react-router-dom
 mdb-react-ui-kit
 
 @fortawesome/fontawesome-free
+@paypal/react-paypal-js

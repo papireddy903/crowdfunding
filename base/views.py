@@ -22,7 +22,35 @@ from .models import Project
 
 from .forms import CommentForm
 # from simplegmail import Gmail
+from paypal.standard.forms import PayPalPaymentsForm 
+from django.conf import settings 
+import uuid 
+from django.urls import reverse 
 
+def checkOut(request):
+    
+    host = request.get_host()
+
+    paypal_checkout = {
+        'business':settings.PAYPAL_RECEIVER_EMAIL,
+        'amount': 500,
+        'item_name':"demo",
+        'invoice':uuid.uuid1(),
+        'currency_code':'USD',
+        'notify_url': f"http://{host}{reverse('paypal-ipn')}" ,
+        'return_url': f"http://{host}{reverse('index')}",
+        'cancel_url': f"http://{host}{reverse('index')}"
+    }
+
+    paypal_payment = PayPalPaymentsForm(initial=paypal_checkout)
+
+    context = {
+        'product':"product",
+        'paypal':paypal_payment
+    }
+
+
+    return render(request, 'checkout.html', context)
 
 # gmail = Gmail()
 

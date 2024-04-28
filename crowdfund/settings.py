@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "rest_framework.authtoken",
+    "paypal.standard.ipn",
 ]
 
 MIDDLEWARE = [
@@ -175,6 +176,10 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
+
+PAYPAL_RECEIVER_EMAIL = 'sb-c77b130593422@business.example.com' 
+PAYPAL_TEST = True 
+
 
 
 # Default primary key field type

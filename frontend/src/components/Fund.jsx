@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import AxiosInstance from './Axios';
-import { useNavigate } from 'react-router-dom'; // Correctly imported
+import { useAmount } from './AmountContext'; // Assuming this is the correct path
 
 const Fund = () => {
     const { id } = useParams();
-    const navigate = useNavigate(); // Use 'navigate' as the conventional name
+    const navigate = useNavigate();
+    const { setAmount } = useAmount(); // Use the context to set the amount
     const [fundingAmount, setFundingAmount] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
@@ -16,15 +17,21 @@ const Fund = () => {
         setError('');
 
         try {
+            // Simulate a funding request to the server
             const response = await AxiosInstance.post(`/fund/${id}`, {
                 funding_amount: fundingAmount
             });
-            // After successful funding, navigate to the success page
-            navigate('/success'); // Use a relative path that matches your routing configuration
-            setIsLoading(false);
+            // Simulate a response check (adjust according to actual response structure)
+            if (response && response.status === 200) {
+                setAmount(fundingAmount); // Set the funding amount in context
+                navigate('/checkout');
+            } else {
+                throw new Error('Failed to process the funding');
+            }
         } catch (error) {
             console.error("Funding error:", error);
             setError('Failed to fund the project. Please try again.');
+        } finally {
             setIsLoading(false);
         }
     };
