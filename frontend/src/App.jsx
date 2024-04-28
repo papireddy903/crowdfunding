@@ -16,6 +16,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './hero.css';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import AddProject from './components/AddProject';
 
 
 function App() {
@@ -46,7 +47,8 @@ function AppContent() {
         <Route path="/login" element={<Login />} />
         <Route path="/fund/:id" element={<Fund />} />
         <Route path="/success" element={<Funding_success />} />
-        <Route path="/checkout" element={<PayPalButton />} />  // PayPal button is now part of the checkout route
+        <Route path="/checkout" element={<PayPalButton />} />  
+        <Route path="/add-project" element={<AddProject />} />
       </Routes>
     </>
   );

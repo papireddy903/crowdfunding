@@ -60,7 +60,7 @@ function NavScrollExample() {
           <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/discover">Discover</Nav.Link>
-            <Nav.Link as={Link} to="/create">Create Campaign</Nav.Link>
+            <Nav.Link as={Link} to="/add-project">Create Campaign</Nav.Link>
           </Nav>
           <Form className="d-flex position-relative" onSubmit={(e) => e.preventDefault()}>
             <Form.Control
@@ -71,7 +71,7 @@ function NavScrollExample() {
               value={searchQuery}
               onChange={handleSearch}
             />
-            <Button variant="outline-success">Search</Button>
+            {/* <Button variant="outline-success">Search</Button> */}
             {filteredProjects.length > 0 && (
               <div className="search-results dropdown-menu show">
                 {filteredProjects.map(project => (

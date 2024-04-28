@@ -1,30 +1,14 @@
 .search-results {
     position: absolute;
-    top: 100%;  /* Aligns directly below the form */
+    top: 100%; /* Aligns directly below the form */
     left: 0;
     right: 0;
-    z-index: 1000;  /* Ensures it is on top of other content */
+    z-index: 1000; /* Ensures it is on top of other content */
     background-color: white;
     border: 1px solid rgba(0,0,0,.15);
     border-radius: 0.25rem;
     box-shadow: 0 6px 12px rgba(0,0,0,.175);
-  }
-  
-  .search-result-item {
-    padding: 8px 12px;
-    cursor: pointer;
-    display: block;
-    width: 100%;
-    clear: both;
-    font-weight: 400;
-    color: #212529;
-    text-align: inherit;
-    white-space: nowrap;
-    background: none;
-    border: 0;
-  }
-  
-  .search-result-item:hover {
-    background-color: #f8f9fa;
+    max-height: 300px; /* Set a maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
   }
   

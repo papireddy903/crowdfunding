@@ -177,8 +177,8 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 
-PAYPAL_RECEIVER_EMAIL = 'sb-c77b130593422@business.example.com' 
-PAYPAL_TEST = True 
+# PAYPAL_RECEIVER_EMAIL = 'sb-c77b130593422@business.example.com' 
+# PAYPAL_TEST = True 
 
 
 
