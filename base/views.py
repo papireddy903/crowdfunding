@@ -272,7 +272,7 @@ def add_project(request):
             )
             new_project.save()
 
-            return redirect('view_project', pId=new_project.id)
+            return redirect('http://localhost:5173/home', pId=new_project.id)
         else:
             error_message = "Invalid form data. Please check the entered values."
             return render(request, 'add_project.html', {'form': form, 'error_message': error_message})

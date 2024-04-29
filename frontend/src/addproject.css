@@ -1,0 +1,62 @@
+.add-project-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.add-project-heading {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.add-project-form p {
+    margin-bottom: 15px;
+}
+
+.add-project-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+}
+
+.add-project-form input[type="text"],
+.add-project-form input[type="number"],
+.add-project-form input[type="date"],
+.add-project-form select,
+.add-project-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Includes padding and border in element's width */
+}
+
+.add-project-form input[type="file"] {
+    display: block;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.submit-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
+
+.submit-button:hover {
+    background-color: #45a049;
+}
+
+.add-project-form textarea {
+    resize: vertical; /* Allows only vertical resizing */
+}

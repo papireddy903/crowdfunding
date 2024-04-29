@@ -60,7 +60,8 @@ function NavScrollExample() {
           <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/discover">Discover</Nav.Link>
-            <Nav.Link as={Link} to="/add-project">Create Campaign</Nav.Link>
+            {/* <Nav.Link as={Link} to="/add-project">Create Campaign</Nav.Link> */}
+            <a href="http://127.0.0.1:8000/add-project/">Create a Campaign</a>
           </Nav>
           <Form className="d-flex position-relative" onSubmit={(e) => e.preventDefault()}>
             <Form.Control
