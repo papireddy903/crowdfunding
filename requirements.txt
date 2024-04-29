@@ -4,4 +4,4 @@ django-cors-headers
 pillow 
 django-allauth 
 django-environ 
-djagno-paypal 
+django-paypal 

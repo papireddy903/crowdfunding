@@ -1,62 +1,73 @@
 .add-project-container {
     max-width: 600px;
     margin: 2rem auto;
-    padding: 20px;
-    background-color: #f7f7f7;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 2rem;
+    background-color: #f9f9f9;
     border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-.add-project-heading {
+.add-project-container h2 {
     text-align: center;
     color: #333;
-    margin-bottom: 20px;
 }
 
-.add-project-form p {
-    margin-bottom: 15px;
+.add-project-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
-.add-project-form label {
-    display: block;
-    margin-bottom: 5px;
+.add-project-container label {
     font-weight: bold;
-    color: #444;
+    margin-bottom: 0.5rem;
+    color: #555;
 }
 
-.add-project-form input[type="text"],
-.add-project-form input[type="number"],
-.add-project-form input[type="date"],
-.add-project-form select,
-.add-project-form textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
+.add-project-container input[type="text"],
+.add-project-container input[type="number"],
+.add-project-container input[type="date"],
+.add-project-container textarea,
+.add-project-container select {
+    padding: 10px;
+    border: 2px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box; /* Includes padding and border in element's width */
+    resize: none;
 }
 
-.add-project-form input[type="file"] {
-    display: block;
-    width: 100%;
-    margin-top: 5px;
+.add-project-container input[type="file"] {
+    border: none;
 }
 
-.submit-button {
-    background-color: #4CAF50;
+.add-project-container textarea {
+    height: 100px;
+}
+
+.add-project-container button {
+    background-color: #007BFF;
     color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    width: 100%;
-    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
-.submit-button:hover {
-    background-color: #45a049;
+.add-project-container button:hover {
+    background-color: #0056b3;
 }
 
-.add-project-form textarea {
-    resize: vertical; /* Allows only vertical resizing */
+.add-project-container button:disabled {
+    background-color: #cccccc;
+}
+
+.add-project-container .error {
+    color: #ff0000;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+select {
+    cursor: pointer;
 }

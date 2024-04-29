@@ -1,14 +1,23 @@
-.search-results {
-    position: absolute;
-    top: 100%; /* Aligns directly below the form */
-    left: 0;
-    right: 0;
-    z-index: 1000; /* Ensures it is on top of other content */
-    background-color: white;
-    border: 1px solid rgba(0,0,0,.15);
-    border-radius: 0.25rem;
-    box-shadow: 0 6px 12px rgba(0,0,0,.175);
-    max-height: 300px; /* Set a maximum height */
-    overflow-y: auto; /* Enable vertical scrolling */
+.profile-link {
+  margin-right: 10px; /* Adjust the spacing around My Profile link */
+}
+
+.navbar-custom .form-inline {
+  margin-right: 1rem;
+}
+
+.navbar-custom .nav-link {
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.navbar-custom .btn-outline-danger, .navbar-custom .btn-primary {
+  margin-left: 0.5rem;
+}
+
+@media (max-width: 992px) {
+  .navbar-custom .nav-link, .profile-link {
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
   }
-  
+}

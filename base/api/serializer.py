@@ -9,25 +9,52 @@ class CreatorSerializer(ModelSerializer):
         fields= '__all__' 
 
 class ProjectSerializer(ModelSerializer):
-    creator = CreatorSerializer()
     percentage_funded = SerializerMethodField()
     remaining_time = SerializerMethodField()
+
     class Meta:
         model = Project 
-        fields=  '__all__' 
+        fields = '__all__'
+        read_only_fields = ('creator',)  # Make 'creator' a read-only field
 
     def get_percentage_funded(self, obj):
         return obj.percentage_funded
 
     def get_remaining_time(self, obj):
         return obj.remaining_time 
-        
+
+    def create(self, validated_data):
+        # Get the user from the context. The c
+        # ontext is set by the view.
+        user = self.context['request'].user
+        print(user)
+        # Fetch the creator associated with this user.
+        creator, _ = Creator.objects.get_or_create(user=user)
+        print(creator)
+        # Assign the creator to the project.
+        project = Project.objects.create(creator=creator, **validated_data)
+        return project
+
 class UserSerializer(ModelSerializer):
-    created_projects = ProjectSerializer(many=True, source='creator.project_set', read_only=True)
-    backed_projects = ProjectSerializer(many=True, source='backer.project_set', read_only=True)
     class Meta:
-        model = User 
-        fields = '__all__' 
+        model = User
+        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'password']
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
+
+    def create(self, validated_data):
+        user = User.objects.create(
+            username=validated_data['username'],
+            email=validated_data['email'],
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'],
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
+
+
 
 class BackerSerializer(ModelSerializer):
     class Meta:

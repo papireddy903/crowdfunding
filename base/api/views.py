@@ -32,7 +32,9 @@ class LoginAPIView(APIView):
         user = authenticate(username=username, password=password)
         if user:
             token, _ = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key}, status=status.HTTP_200_OK)
+            # id = User.objects.get(id=user.id)
+
+            return Response({'token': token.key, 'userId':user.id}, status=status.HTTP_200_OK)
         else:
             return Response({"error": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -78,14 +80,23 @@ class FundAPIView(APIView):
         except Exception as e: 
             return Response({"error:", "Project not found"}, status=404)
 
-
+@method_decorator(csrf_exempt, name='dispatch')
 class UsersView(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
+
+
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
+
 class ProjectsView(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
@@ -98,6 +109,22 @@ class ProjectsView(APIView):
         ) 
         serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data) 
+    
+    def post(self, request, *args, **kwargs):
+        # Instantiate the serializer and pass 'request' in the context
+        print("POST REQUEST")
+        print(request.data)
+        # token, _ = Token.objects.get_or_create(user=user)
+        token = "ea85599bb906749d4b004596f82bd968d90d1ac8"
+        serializer = ProjectSerializer(data=request.data, context={'request': request})
+        print("CROSSEd")
+        if serializer.is_valid():
+            print('INSIDE')
+            serializer.save()
+            print(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ProjectDetail(APIView):
     permission_classes = [AllowAny]
@@ -118,8 +145,8 @@ class CreatorsView(APIView):
 
 class UserDetail(APIView):
     permission_classes = [AllowAny]
-    def get(self, request, username):
-        users = User.objects.get(username=username)
+    def get(self, request, pk):
+        users = User.objects.get(id=pk)
         serializer = UserSerializer(users, many=False)
         return Response(serializer.data)
     
