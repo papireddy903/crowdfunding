@@ -1,0 +1,14 @@
+/* PayPalButton.css */
+
+.paypal-buttons-container {
+    display: flex; /* Ensures the button aligns nicely */
+    justify-content: center; /* Center align the PayPal button horizontally */
+    margin-top: 20px; /* Adds some space above the PayPal button */
+    margin-bottom: 20px; /* Adds some space below the PayPal button */
+}
+
+.paypal-button-row {
+    width: 100%; /* Ensures the PayPal button stretches to container width */
+    max-width: 300px; /* Maximum width of the PayPal button */
+    margin: auto; /* Center the button within the container */
+}

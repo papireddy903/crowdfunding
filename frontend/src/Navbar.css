@@ -7,8 +7,8 @@
 }
 
 .navbar-custom .nav-link {
-  margin-right: 1rem;
-  margin-left: 1rem;
+  margin-right: 0.35rem;
+  margin-left: 0.35rem;
 }
 
 .navbar-custom .btn-outline-danger, .navbar-custom .btn-primary {

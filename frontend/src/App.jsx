@@ -19,6 +19,9 @@ import './hero.css';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import './addproject.css';
+// import './fund.css'
+import './paypal.css'
+import Discover from './components/Discover';
 
 function App() {
   const clientId = "AeLpCh8VYNzm9tjwpk02UmD35CYRsqRwyXFOZRn81qAOWzoZyTLILrepeaaycTbZLSgo22emdeIFn1ra"; // Use your actual PayPal client ID
@@ -54,6 +57,7 @@ function AppContent() {
         <Route path="/add-project" element={<AddProject />} />
         <Route path="/register" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/discover" element={<Discover />} />
       </Routes>
     </>
   );

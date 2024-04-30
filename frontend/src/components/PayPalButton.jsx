@@ -2,7 +2,6 @@ import React from 'react';
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useAmount } from './AmountContext';
 import { useNavigate } from 'react-router-dom';  // Import useNavigate from react-router-dom
-
 const PayPalButton = () => {
   const { amount } = useAmount();
   const navigate = useNavigate();  // Create an instance of useNavigate

@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
 import AxiosInstance from './Axios'; // Ensure this import path is correct
-
+import defaultImage from '../assets/default.webp'
 // Creating the UserContext
 const UserContext = createContext();
 
@@ -71,7 +71,7 @@ const Profile = () => {
                             <MDBCardBody className="text-center">
                                 <div className="mt-3 mb-4">
                                     <MDBCardImage 
-                                        src={user.profileImage || '/images/defaultProfileImage.jpg'} // Use a valid default image path
+                                        src={defaultImage} // Use a valid default image path
                                         className="rounded-circle" 
                                         fluid 
                                         style={{ width: '100px' }}
@@ -85,7 +85,7 @@ const Profile = () => {
                                 </MDBCardText>
                                 <MDBBtn rounded size="lg">Message now</MDBBtn>
                                 <div className="d-flex justify-content-between text-center mt-5 mb-2">
-                                    <MDBCardText className="mb-1 h5">{user.email}</MDBCardText>
+                                    {/* <MDBCardText className="mb-1 h5">{user.email}</MDBCardText> */}
                                     
                                 </div>
                             </MDBCardBody>
