@@ -40,11 +40,17 @@ git clone https://github.com/papireddy903/crowdfunding
 3. **Activate the virtual environment**
    ```bash
    .\venv\Scripts\activate
-4. **Install backend modules**
-     ```pip install -r requirements.txt
-5. **Install frontend modules**
-   ```cd frontend
-      npm install requirements
-   ``` 
+4. **Install Backend Modules:**
+   Install the required Python packages specified in `requirements.txt`:
+   ```bash
+   pip install -r requirements.txt
+
+5. **Navigate to the frontend directory:**
+   ```bash
+   cd frontend
+6. **Install dependencies**
+   ```bash
+   npm install
+
        
 
