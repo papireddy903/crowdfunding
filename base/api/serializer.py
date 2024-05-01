@@ -8,31 +8,24 @@ class CreatorSerializer(ModelSerializer):
         model = Creator 
         fields= '__all__' 
 
-class ProjectSerializer(ModelSerializer):
+class ProjectSerializer(serializers.ModelSerializer):
     percentage_funded = SerializerMethodField()
     remaining_time = SerializerMethodField()
 
     class Meta:
-        model = Project 
+        model = Project
         fields = '__all__'
-        read_only_fields = ('creator',)  # Make 'creator' a read-only field
 
     def get_percentage_funded(self, obj):
         return obj.percentage_funded
 
     def get_remaining_time(self, obj):
         return obj.remaining_time 
-
+    
     def create(self, validated_data):
-        # Get the user from the context. The c
-        # ontext is set by the view.
-        user = self.context['request'].user
-        print(user)
-        # Fetch the creator associated with this user.
-        creator, _ = Creator.objects.get_or_create(user=user)
-        print(creator)
-        # Assign the creator to the project.
-        project = Project.objects.create(creator=creator, **validated_data)
+        backers_data = validated_data.pop('backers', [])
+        project = Project.objects.create(**validated_data)
+        # project.backers.set(backers_data)  # Assuming backers is a many-to-many field
         return project
 
 class UserSerializer(ModelSerializer):

@@ -77,17 +77,17 @@ const Profile = () => {
                                         style={{ width: '100px' }}
                                     />
                                 </div>
-                                <MDBTypography tag="h4">@{user.username}</MDBTypography>
+                                <MDBTypography tag="h4">{user.username}</MDBTypography>
                                 <MDBCardText className="text-muted mb-4">
                                     
                                     <p>{user.first_name} {user.last_name}</p>
                                     
                                 </MDBCardText>
-                                <MDBBtn rounded size="lg">Message now</MDBBtn>
-                                <div className="d-flex justify-content-between text-center mt-5 mb-2">
-                                    {/* <MDBCardText className="mb-1 h5">{user.email}</MDBCardText> */}
-                                    
-                                </div>
+                                {/* <MDBBtn rounded size="lg">Message now</MDBBtn> */}
+                                {/* <div className="d-flex justify-content-center text-center mt-5 mb-2">
+                                    <a href={`mailto:${user.email}`} className="btn btn-primary">Email Now</a>
+                                </div> */}
+
                             </MDBCardBody>
                         </MDBCard>
                     </MDBCol>

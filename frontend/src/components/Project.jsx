@@ -1,64 +1,85 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import AxiosInstance from './Axios';
-import '../project.css'; // Importing the CSS file
+import AxiosInstance from './Axios';  // Ensure this is correctly defined
 
 const ProjectDetail = () => {
   const { id } = useParams();
   const [project, setProject] = useState(null);
+  const [creator, setCreator] = useState(null);
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
     AxiosInstance.get(`/projects/${id}`)
       .then(response => {
-        // Assuming the API returns an array, take the first item
-        setProject(response.data[0]);
+        setProject(response.data);
+        console.log(response.data[0].creator)
+        // Fetch creator details if project has a creator id
+        if (response.data[0].creator) {
+          // console.log("fetching creator")
+          fetchCreator(response.data[0].creator);
+        }
       })
       .catch(error => {
         console.error('Error fetching project:', error);
       });
   }, [id]);
 
+  const fetchCreator = (creatorId) => {
+    // console.log("entered")
+    AxiosInstance.get(`/creators/${creatorId}`)
+      .then(response => {
+        console.log(response)
+        setCreator(response.data[0].username);
+      })
+      .catch(error => {
+        console.error('Error fetching creator:', error);
+      });
+  };
+
   if (!project) {
     return <div>Loading...</div>;
   }
 
-  // Format the currency correctly
   const formatCurrency = (value) => {
     return `$${Number(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
   };
 
-  const progressWidth = (project.percentage_funded || 0).toFixed(2);
+  const progressWidth = `${project.percentage_funded || 0}%`;
+  const imageUrl = `${baseUrl}${project.photo}`;
+  // const creator = fetchCreator();
 
   return (
     <div className="container">
       <div className="row">
         <div className="col-md-12 text-center">
-          <h1>{project.title}</h1>
-          <p>{project.description}</p>
+          <h1>{project[0].title}</h1>
+          <p>{project[0].description}</p>
           <hr />
         </div>
       </div>
       <div className="row">
         <div className="col-md-6">
-          <img src={project.photo || '/path/to/default/image.jpg'} alt={project.title} className="img-fluid" />
+          <img src={imageUrl} alt={project[0].title} className="img-fluid" />
         </div>
         <div className="col-md-6">
           <h3>Project Details</h3>
           <ul className="list-unstyled">
-            <li><strong>Project Type:</strong> {project.project_type}</li>
-            <li><strong>End Date:</strong> {project.end_date}</li>
-            <li><strong>Funding Goal:</strong> {formatCurrency(project.funding_goal)}</li>
-            <li><strong>Current Funding:</strong> {formatCurrency(project.current_funding)}</li>
-            <li><strong>Remaining Time:</strong> {project.remaining_time}</li>
+            <li><strong>Project Type:</strong> {project[0].project_type}</li>
+            <li><strong>End Date:</strong> {project[0].end_date}</li>
+            <li><strong>Funding Goal:</strong> {formatCurrency(project[0].funding_goal)}</li>
+            <li><strong>Current Funding:</strong> {formatCurrency(project[0].current_funding)}</li>
+            <li><strong>Remaining Time:</strong> {project[0].remaining_time}</li>
+            <li><strong>Creator: </strong>{project[0].creator}</li>
           </ul>
-          {project.creator && (
+          {creator && (
             <div>
               <hr />
-              <p><strong>Creator:</strong> {project.creator.username}</p>
+              {console.log("creator name: ", creator)}
+              <p><strong>Creator:</strong> {creator}</p>
             </div>
           )}
           <div className="progress">
-            <div className="progress-bar" style={{ width: `${progressWidth}%` }} aria-valuenow={project.current_funding} aria-valuemin="0" aria-valuemax={project.funding_goal}></div>
+            <div className="progress-bar" style={{ width: progressWidth }} aria-valuenow={project.current_funding} aria-valuemin="0" aria-valuemax={project.funding_goal}></div>
           </div>
           <div>
             <Link to={`/fund/${project.id}`} className="btn btn-primary ms-2">Back this Project</Link>

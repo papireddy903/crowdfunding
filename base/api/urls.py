@@ -8,6 +8,7 @@ urlpatterns = [
     path('projects/', ProjectsView.as_view(), name='projects'),
     path('projects/<int:pk>/', ProjectDetail.as_view(), name='project_detail'),
     path('creators/', CreatorsView.as_view(), name='creators'),
+    path('creators/<int:pk>', CreatorDetail.as_view(), name='creator_detail'),
     path('users/<int:pk>/', UserDetail.as_view(), name='user_detail'),
     path('backers/', BackerView.as_view(), name='backers'),
     path('comments/', CommentsView.as_view(), name='comments'),

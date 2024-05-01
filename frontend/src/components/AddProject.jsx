@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function AddProjectForm() {
     const [formData, setFormData] = useState({
@@ -7,25 +7,42 @@ function AddProjectForm() {
         funding_goal: '',
         project_type: '',
         photo: null,
-        end_date: ''
+        end_date: '',
+        creator: '', 
+        backers : '',
     });
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
+
+    useEffect(() => {
+        // Fetch user ID when component mounts
+        const userId = localStorage.getItem('userId');
+        if (userId) {
+            setFormData(prev => ({ ...prev, creator: userId }));
+        }
+    }, []);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        if (name === 'backers') {
+            // Assuming users input backers as a comma-separated list of IDs
+            const backersIds = value.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id));
+            setFormData(prev => ({ ...prev, [name]: backersIds }));
+        } else {
+            setFormData(prev => ({ ...prev, [name]: value }));
+        }
     };
+    
+    
 
     const handleFileChange = (event) => {
         setFormData(prev => ({ ...prev, photo: event.target.files[0] }));
     };
 
-    // Validation for form fields
     const validateForm = () => {
-        const { title, description, funding_goal, project_type, end_date } = formData;
-        if (!title || !description || !funding_goal || !project_type || !end_date) {
-            setError("All fields must be filled out");
+        if (!formData.title || !formData.description || !formData.funding_goal || !formData.project_type || !formData.end_date || !formData.creator) {
+            setError("All fields must be filled out, including a valid user ID.");
             return false;
         }
         return true;
@@ -33,38 +50,46 @@ function AddProjectForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        if (!validateForm()) return; // Client-side validation
-
-        const token = localStorage.getItem('userToken');
+        if (!validateForm()) return;
+    
+        const token = localStorage.getItem('authToken');
         if (!token) {
-            setError('No authentication token found');
+            setError('Authentication required. Please log in.');
             return;
         }
-
+    
         const data = new FormData();
         Object.keys(formData).forEach(key => {
-            data.append(key, formData[key]);
+            if (formData[key] !== null) {
+                if (Array.isArray(formData[key])) {
+                    formData[key].forEach(item => data.append(`${key}[]`, item));  // Note the use of `${key}[]` for proper array handling
+                } else {
+                    data.append(key, formData[key]);
+                }
+            }
         });
-
+        
+    
         setIsLoading(true);
         setError('');
-
-        fetch('http://127.0.0.1:8000/api/projects/', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Token ${token}`
-            },
-            body: data
-        })
-        .then(response => {
+    
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/projects/', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Token ${token}`
+                },
+                body: data
+            });
+    
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                console.log(response)
+                const error = await response.text(); // or response.json() if response is in JSON format
+                throw new Error('Network response was not satisfactory: ' + error);
             }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Project added successfully:', data);
+    
+            const result = await response.json();
+            console.log('Project added successfully:', result);
             alert('Project added successfully!');
             setFormData({
                 title: '',
@@ -72,17 +97,18 @@ function AddProjectForm() {
                 funding_goal: '',
                 project_type: '',
                 photo: null,
-                end_date: ''
-            }); // Reset form on success
-        })
-        .catch(error => {
+                end_date: '',
+                creator: ''  // Reset creator ID if needed or keep for further submissions
+            });
+            setSuccessMessage('Project added successfully!');
+        } catch (error) {
             console.error('Failed to add project:', error);
             setError(error.message || 'Failed to add project. Please try again.');
-        })
-        .finally(() => {
+        } finally {
             setIsLoading(false);
-        });
+        }
     };
+    
 
     return (
         <div className="add-project-container">
@@ -90,10 +116,13 @@ function AddProjectForm() {
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <label>Title:</label>
                 <input type="text" name="title" value={formData.title} onChange={handleInputChange} required />
+                
                 <label>Description:</label>
                 <textarea name="description" value={formData.description} onChange={handleInputChange} required />
+                
                 <label>Funding Goal:</label>
                 <input type="number" name="funding_goal" value={formData.funding_goal} onChange={handleInputChange} required />
+                
                 <label>Project Type:</label>
                 <select name="project_type" value={formData.project_type} onChange={handleInputChange} required>
                     <option value="">Select a Type</option>
@@ -103,12 +132,17 @@ function AddProjectForm() {
                     <option value="games">Games</option>
                     <option value="publishing">Publishing</option>
                 </select>
+                
                 <label>Upload Photo:</label>
                 <input type="file" name="photo" onChange={handleFileChange} required />
+                
                 <label>End Date:</label>
                 <input type="date" name="end_date" value={formData.end_date} onChange={handleInputChange} required />
+                
                 <button type="submit" disabled={isLoading}>Submit</button>
+                
                 {error && <p className="error">{error}</p>}
+                {successMessage && <p className="success">{successMessage}</p>}
             </form>
         </div>
     );

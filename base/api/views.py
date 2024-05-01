@@ -96,7 +96,7 @@ class UsersView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-
+@method_decorator(csrf_exempt, name='dispatch')
 class ProjectsView(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
@@ -111,17 +111,9 @@ class ProjectsView(APIView):
         return Response(serializer.data) 
     
     def post(self, request, *args, **kwargs):
-        # Instantiate the serializer and pass 'request' in the context
-        print("POST REQUEST")
-        print(request.data)
-        # token, _ = Token.objects.get_or_create(user=user)
-        token = "ea85599bb906749d4b004596f82bd968d90d1ac8"
-        serializer = ProjectSerializer(data=request.data, context={'request': request})
-        print("CROSSEd")
+        serializer = ProjectSerializer(data=request.data)
         if serializer.is_valid():
-            print('INSIDE')
             serializer.save()
-            print(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -132,11 +124,24 @@ class ProjectDetail(APIView):
         projects = Project.objects.filter(id=pk) 
         serializer = ProjectSerializer(projects, many=True) 
         return Response(serializer.data) 
-
+    
+@method_decorator(csrf_exempt, name='dispatch')
 class CreatorsView(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
         creators = Creator.objects.all()
+        creator_user_ids = [creator.user.id for creator in creators]
+        creator_users = User.objects.filter(pk__in=creator_user_ids)
+
+        serializer = UserSerializer(creator_users, many=True)  
+        return Response(serializer.data)
+    
+@method_decorator(csrf_exempt, name='dispatch')
+class CreatorDetail(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request,pk):
+        creators = Creator.objects.filter(id=pk)
+        print(creators)
         creator_user_ids = [creator.user.id for creator in creators]
         creator_users = User.objects.filter(pk__in=creator_user_ids)
 
