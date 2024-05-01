@@ -44,8 +44,8 @@ const ProjectDetail = () => {
     return `$${Number(value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
   };
 
-  const progressWidth = `${project.percentage_funded || 0}%`;
-  const imageUrl = `${baseUrl}${project.photo}`;
+  const progressWidth = `${project[0].percentage_funded || 0}%`;
+  const imageUrl = `${baseUrl}${project[0].photo}`;
   // const creator = fetchCreator();
 
   return (
@@ -74,7 +74,6 @@ const ProjectDetail = () => {
           {creator && (
             <div>
               <hr />
-              {console.log("creator name: ", creator)}
               <p><strong>Creator:</strong> {creator}</p>
             </div>
           )}
