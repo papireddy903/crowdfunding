@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Container, Form, Nav, Navbar } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import '../Navbar.css';  // Make sure this is correctly pointing to your CSS file
+import '../Navbar.css';  
 
 function NavScrollExample() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -62,7 +62,7 @@ function NavScrollExample() {
               aria-label="Search"
               value={searchQuery}
               onChange={handleSearch}
-              className="mr-sm-2"  // Bootstrap spacing class for some right margin
+              className="mr-sm-2"  
             />
             {filteredProjects.length > 0 && (
               <div className="search-results dropdown-menu show">

@@ -1,11 +1,10 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
-import AxiosInstance from './Axios'; // Ensure this import path is correct
+import AxiosInstance from './Axios'; 
 import defaultImage from '../assets/default.webp'
-// Creating the UserContext
+
 const UserContext = createContext();
 
-// Custom hook for consuming context
 export const useUser = () => useContext(UserContext);
 
 // Provider Component
@@ -54,7 +53,7 @@ export const UserProvider = ({ children }) => {
     );
 };
 
-// Profile Component
+
 const Profile = () => {
     const { user } = useUser();
 
@@ -71,7 +70,7 @@ const Profile = () => {
                             <MDBCardBody className="text-center">
                                 <div className="mt-3 mb-4">
                                     <MDBCardImage 
-                                        src={defaultImage} // Use a valid default image path
+                                        src={defaultImage} 
                                         className="rounded-circle" 
                                         fluid 
                                         style={{ width: '100px' }}

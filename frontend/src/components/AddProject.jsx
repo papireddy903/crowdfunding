@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function AddProjectForm() {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -16,7 +18,6 @@ function AddProjectForm() {
     const [successMessage, setSuccessMessage] = useState('');
 
     useEffect(() => {
-        // Fetch user ID when component mounts
         const userId = localStorage.getItem('userId');
         if (userId) {
             setFormData(prev => ({ ...prev, creator: userId }));
@@ -26,7 +27,6 @@ function AddProjectForm() {
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         if (name === 'backers') {
-            // Assuming users input backers as a comma-separated list of IDs
             const backersIds = value.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id));
             setFormData(prev => ({ ...prev, [name]: backersIds }));
         } else {
@@ -62,7 +62,7 @@ function AddProjectForm() {
         Object.keys(formData).forEach(key => {
             if (formData[key] !== null) {
                 if (Array.isArray(formData[key])) {
-                    formData[key].forEach(item => data.append(`${key}[]`, item));  // Note the use of `${key}[]` for proper array handling
+                    formData[key].forEach(item => data.append(`${key}[]`, item));  
                 } else {
                     data.append(key, formData[key]);
                 }
@@ -84,7 +84,7 @@ function AddProjectForm() {
     
             if (!response.ok) {
                 console.log(response)
-                const error = await response.text(); // or response.json() if response is in JSON format
+                const error = await response.text(); 
                 throw new Error('Network response was not satisfactory: ' + error);
             }
     
@@ -98,9 +98,10 @@ function AddProjectForm() {
                 project_type: '',
                 photo: null,
                 end_date: '',
-                creator: ''  // Reset creator ID if needed or keep for further submissions
+                creator: ''  
             });
             setSuccessMessage('Project added successfully!');
+            navigate("/home");
         } catch (error) {
             console.error('Failed to add project:', error);
             setError(error.message || 'Failed to add project. Please try again.');

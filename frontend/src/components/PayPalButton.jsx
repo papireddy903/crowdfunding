@@ -1,10 +1,10 @@
 import React from 'react';
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { useAmount } from './AmountContext';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate from react-router-dom
+import { useNavigate } from 'react-router-dom';  
 const PayPalButton = () => {
   const { amount } = useAmount();
-  const navigate = useNavigate();  // Create an instance of useNavigate
+  const navigate = useNavigate();  
 
   return (
     <PayPalButtons
@@ -13,7 +13,7 @@ const PayPalButton = () => {
         return actions.order.create({
           purchase_units: [{
             amount: {
-              currency_code: 'USD', // Explicitly specify the currency here
+              currency_code: 'USD', 
               value: amount
             }
           }]
@@ -23,7 +23,7 @@ const PayPalButton = () => {
         return actions.order.capture().then(details => {
           console.log("Payment Successful:", details);
           alert("Thank you for your payment!");
-          navigate('/home');  // Navigate to '/home' after successful payment
+          navigate('/home');  
         }).catch(err => {
           console.error("Error capturing the payment:", err);
           alert("There was an issue capturing your payment. Please try again or contact support.");

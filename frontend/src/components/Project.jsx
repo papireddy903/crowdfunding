@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import AxiosInstance from './Axios';  // Ensure this is correctly defined
+import AxiosInstance from './Axios';  
 
 const ProjectDetail = () => {
   const { id } = useParams();
@@ -13,9 +13,8 @@ const ProjectDetail = () => {
       .then(response => {
         setProject(response.data);
         console.log(response.data[0].creator)
-        // Fetch creator details if project has a creator id
+        
         if (response.data[0].creator) {
-          // console.log("fetching creator")
           fetchCreator(response.data[0].creator);
         }
       })
@@ -25,7 +24,6 @@ const ProjectDetail = () => {
   }, [id]);
 
   const fetchCreator = (creatorId) => {
-    // console.log("entered")
     AxiosInstance.get(`/creators/${creatorId}`)
       .then(response => {
         console.log(response)
@@ -46,7 +44,6 @@ const ProjectDetail = () => {
 
   const progressWidth = `${project[0].percentage_funded || 0}%`;
   const imageUrl = `${baseUrl}${project[0].photo}`;
-  // const creator = fetchCreator();
 
   return (
     <div className="container">
@@ -81,7 +78,7 @@ const ProjectDetail = () => {
             <div className="progress-bar" style={{ width: progressWidth }} aria-valuenow={project.current_funding} aria-valuemin="0" aria-valuemax={project.funding_goal}></div>
           </div>
           <div>
-            <Link to={`/fund/${project.id}`} className="btn btn-primary ms-2">Back this Project</Link>
+            <Link to={`/fund/${project[0].id}`} className="btn btn-primary ms-2">Back this Project</Link>
           </div>
         </div>
       </div>
