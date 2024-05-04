@@ -7,6 +7,7 @@ const ProjectsPage = () => {
   const [totalProjects, setTotalProjects] = useState(0);
   const [totalFunding, setTotalFunding] = useState(0);
   const baseUrl = import.meta.env.VITE_API_BASE_URL; 
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,7 +43,9 @@ const ProjectsPage = () => {
       <div className="card-container--2">
         {projects.map(project => {
           const imageUrl = `${baseUrl}${project.photo}`;
-          if (project.remaining_time !== "Due date ended") {
+          if (project.remaining_time !== "Due date ended" && project.creator != userId) {
+            console.log(project.creator);
+            console.log(userId);
             return (
               <div className="card--2" key={project.id}>
                 <a href={`/discover/${project.id}`}>
@@ -57,6 +60,8 @@ const ProjectsPage = () => {
                   <div className="card--hover">
                     <h2>{project.title}</h2>
                     <p>{project.description}</p>
+                    {/* <p>{project.creator}</p> */}
+                    {/* <p>{userId}</p> */}
                     <p className="link">Click to see project</p>
                   </div>
                 </a>
@@ -64,7 +69,7 @@ const ProjectsPage = () => {
               </div>
             );
           }
-          return null; 
+          return null; // 
         })}
       </div>
     </div>

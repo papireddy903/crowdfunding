@@ -3,29 +3,34 @@ from rest_framework import serializers
 from django.contrib.auth import authenticate
 from ..models import User, Project, Creator , Backer, Comment
 
-class CreatorSerializer(ModelSerializer):
-    class Meta:
-        model = Creator 
-        fields= '__all__' 
+
 
 class ProjectSerializer(serializers.ModelSerializer):
-    percentage_funded = SerializerMethodField()
-    remaining_time = SerializerMethodField()
+    percentage_funded = serializers.SerializerMethodField()
+    remaining_time = serializers.SerializerMethodField()
+    creator_user_id = serializers.SerializerMethodField()
 
     class Meta:
         model = Project
-        fields = '__all__'
+        fields = '__all__'  # Ensures all fields are included, adjust if specific fields are desired
 
     def get_percentage_funded(self, obj):
+        # Calculate or retrieve percentage funded, if not a direct field
         return obj.percentage_funded
 
     def get_remaining_time(self, obj):
-        return obj.remaining_time 
-    
+        # Calculate or retrieve remaining time, if not a direct field
+        return obj.remaining_time
+
+    def get_creator_user_id(self, obj):
+        # Return the User ID associated with the creator
+        return obj.creator.user.id if obj.creator and obj.creator.user else None
+
     def create(self, validated_data):
         backers_data = validated_data.pop('backers', [])
         project = Project.objects.create(**validated_data)
-        # project.backers.set(backers_data)  # Assuming backers is a many-to-many field
+        # Assuming backers is a many-to-many field
+        # project.backers.set(backers_data) if backers_data else None
         return project
 
 class UserSerializer(ModelSerializer):
@@ -47,7 +52,14 @@ class UserSerializer(ModelSerializer):
         user.save()
         return user
 
+class CreatorSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    bio = serializers.CharField()
+    fund_collected = serializers.DecimalField(max_digits=10, decimal_places=2)
 
+    class Meta:
+        model = Creator
+        fields = ['user', 'bio', 'fund_collected']
 
 class BackerSerializer(ModelSerializer):
     class Meta:

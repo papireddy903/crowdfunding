@@ -110,7 +110,28 @@ class ProjectsView(APIView):
         serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data) 
     
+
     def post(self, request, *args, **kwargs):
+        # Extract user ID from request data
+        user_id = request.data.get('creator')
+        print(user_id)
+
+        # Check if a Creator with the given user_id exists
+        creator = None
+        if user_id:
+            try:
+                # Assume Creator is directly linked to a User
+                user = User.objects.get(id=user_id)
+                print(user)
+                creator, created = Creator.objects.get_or_create(user=user)
+            except User.DoesNotExist:
+                return Response({"error": "User does not exist."}, status=status.HTTP_404_NOT_FOUND)
+        
+        # Update request data with the creator instance
+        request.data['creator'] = creator.id
+        print(creator.id)
+        
+        # Now proceed with the normal serialization process
         serializer = ProjectSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -128,24 +149,24 @@ class ProjectDetail(APIView):
 @method_decorator(csrf_exempt, name='dispatch')
 class CreatorsView(APIView):
     permission_classes = [AllowAny]
-    def get(self, request):
-        creators = Creator.objects.all()
-        creator_user_ids = [creator.user.id for creator in creators]
-        creator_users = User.objects.filter(pk__in=creator_user_ids)
 
-        serializer = UserSerializer(creator_users, many=True)  
+    def get(self, request):
+        # Retrieve all Creator instances
+        creators = Creator.objects.all()
+        # Use CreatorSerializer to serialize the data
+        serializer = CreatorSerializer(creators, many=True)
         return Response(serializer.data)
     
 @method_decorator(csrf_exempt, name='dispatch')
 class CreatorDetail(APIView):
     permission_classes = [AllowAny]
-    def get(self, request,pk):
-        creators = Creator.objects.filter(id=pk)
-        print(creators)
-        creator_user_ids = [creator.user.id for creator in creators]
-        creator_users = User.objects.filter(pk__in=creator_user_ids)
 
-        serializer = UserSerializer(creator_users, many=True)  
+    def get(self, request, pk):
+        # Get the Creator object by pk (primary key)
+        creator = get_object_or_404(Creator, pk=pk)
+        
+        # Use the CreatorSerializer to serialize the Creator object
+        serializer = CreatorSerializer(creator)
         return Response(serializer.data)
 
 class UserDetail(APIView):

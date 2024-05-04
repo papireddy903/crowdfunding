@@ -1,24 +1,54 @@
-import React from 'react';
-import heroVideo from '../assets/background_video.mp4'; // Adjust the path to where your video file is stored
-import {Link} from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import '../landing.css';
+import arrow_btn from '../assets/arrow_btn.png';
+import Video1 from '../assets/Video.mp4';
+// import Video2 from '../assets/videeo2.mp4';
+// import ImageDonate from '../assets/photo.jpg';
+
 const Landing = () => {
+  const [currentVideo, setCurrentVideo] = useState(1);
+
+  useEffect(() => {
+    // Change background video every 10 seconds
+    const interval = setInterval(() => {
+      setCurrentVideo((prevVideo) => (prevVideo % 3) + 1);
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const getVideoSource = () => {
+    switch (currentVideo) {
+      case 1:
+        return Video1;
+      // case 2:
+      //   return Video2;
+      // case 3:
+      //   return ImageDonate; // Use the image as a fallback
+      // default:
+      //   return Video1;
+    }
+  };
+
   return (
-    <div>
+    <div className="landing">
       <header style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden' }}>
-        <video autoPlay muted loop style={{ position: 'absolute', width: '100%', left: '50%', top: '50%', height: '100%', objectFit: 'cover', transform: 'translate(-50%, -50%)', zIndex: '-1' }}>
-          <source src={heroVideo} type="video/mp4" />
+        <video className="video" autoPlay muted loop style={{ position: 'absolute', width: '100%', left: '50%', top: '50%', height: '100%', objectFit: 'cover', transform: 'translate(-50%, -50%)', zIndex: '-1' }}>
+          <source src={getVideoSource()} type="video/mp4" />
         </video>
-        <div className="container header-section" style={{ position: 'relative', zIndex: '1' }}>
-          <div className="header-left">
-            <h1>Crowdfunding Made Easy</h1>
-            <p>Our platform simplifies the crowdfunding process, making it accessible to everyone. We provide the tools and support you need to turn your ideas into successful campaigns.</p>
-            {/* <a href="/home" className="primary-button get-started-btn">Get Started</a> */}
-            <Link to="/home" className="btn btn-primary ms-2">Get Started</Link>
+        <div className="landing-page-1">
+          <div className="header-left-1">
+            <h1 className="hero-text-1">Crowd Funding Made Easy</h1>
+            <div className="hero-explore-1">
+              <Link to="/home">Get Started</Link>
+              <img src={arrow_btn} alt="" />
+            </div>
           </div>
         </div>
       </header>
     </div>
   );
-}
+};
 
 export default Landing;

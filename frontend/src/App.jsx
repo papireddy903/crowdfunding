@@ -22,6 +22,7 @@ import './addproject.css';
 // import './fund.css'
 import './paypal.css'
 import Discover from './components/Discover';
+import './landing.css'
 
 function App() {
   const clientId = "AeLpCh8VYNzm9tjwpk02UmD35CYRsqRwyXFOZRn81qAOWzoZyTLILrepeaaycTbZLSgo22emdeIFn1ra"; // Use your actual PayPal client ID

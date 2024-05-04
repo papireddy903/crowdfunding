@@ -1,114 +1,126 @@
 .body {
-    padding: 50px;
-    /* display: flex; */
-    /* flex-flow: wrap; */
-    font-family: "Ubuntu", sans-serif;
-  }
-  
-  .body * {
-    box-sizing: border-box;
-  }
-  
-  @media screen and (max-width: 767px) {
-    .card--2 {
-      width: 90%;
-    }
-  }
-  
-  @media screen and (min-width: 768px) and (max-width: 991px) {
-    .card--2 {
-      width: 45%;
-    }
-  }
-  
-  @media screen and (min-width: 992px) {
-    .card--2 {
-      width: 30%;
-    }
-  }
-  
-  .card-container--2{
-    /* flex: 100px; */
-    display: flex;
-    margin: 30px;
-    /* gap: 30px; */
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    /* flex-direction: column; */
-  }
-  
+  padding: 50px;
+  /* display: flex; */
+  /* flex-flow: wrap; */
+  font-family: "Ubuntu", sans-serif;
+  background-color:#f0fdf4;
+}
+
+.body * {
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 767px) {
   .card--2 {
-    font-weight: bold;
-    position: relative;
-    /* width: 30%; */
-    margin: 10px;
-    /* width: 150px; */
-    /* overflow: hidden; */
+    width: 90%;
   }
-  
-  .card--2 a {
-    padding: 30px;
-    width: 100%;
-    height: 500px;
-    border: 2px solid black;
-    background: white;
-    text-decoration: none;
-    color: black;
-    display: block;
-    transition: 0.25s ease;
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .card--2 {
+    width: 45%;
   }
-  
-  .card--2 a:hover {
-    transform: translate(-30px, -30px);
-    border-color: #5bc0eb;
-    /* border-color: #aad7d9; */
+}
+
+@media screen and (min-width: 992px) {
+  .card--2 {
+    width: 30%;
   }
-  
-  .card--2 a:hover .card--display {
-    display: none;
-  }
-  
-  .card--2 a:hover .card--hover {
-    display: block;
-  }
-  
-  .card--2 a .card--display h2 {
-    margin: 20px 0 0;
-  }
-  
-  .card--2 a .card--hover {
-    display: none;
-  }
-  
-  .card--2 a .card--hover h2 {
-    margin: 20px 0;
-  }
-  
-  .card--2 a .card--hover p {
-    font-weight: normal;
-    line-height: 1.5;
-  }
-  
-  .card--2 a .card--hover p.link {
-    margin: 20px 0 0;
-    font-weight: bold;
-    color: #5bc0eb;
-  }
-  
-  .card--2 .card--border {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    border: 2px dashed black;
-    z-index: -1;
-  }
-  
-  .card-image {
-    width: 100%; /* Make image fill container */
-    max-height: 250px; /* Maintain aspect ratio */
-    border: 2px solid darkslategrey;
-    object-fit: cover;
-    border-radius: 10px;
-  }
+}
+
+.card-container--2{
+  /* flex: 100px; */
+  display: flex;
+  /* margin: 30px; */
+  /* gap: 30px; */
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  /* flex-direction: column; */
+}
+
+.card--2 {
+  font-weight: bold;
+  position: relative;
+  margin: 10px;
+  background-color: #fff7ed;
+  border-radius:2rem
+}
+
+.card--2 a {
+  padding: 30px;
+  width: 100%;
+  height: 500px;
+  border: 2px solid black;
+  border-radius:1rem;
+  /* background:#263238;
+ */
+ background:#1e1b4b;
+  text-decoration: none;
+  color: white;
+  display: block;
+  transition: 0.25s ease;
+}
+
+.card--2 a:hover {
+  transform: translate(-30px, -30px);
+  border-color: white;
+  /* border-color: #aad7d9; */
+}
+
+.card--2 a:hover .card--display {
+  display: none;
+}
+
+.card--2 a:hover .card--hover {
+  display: block;
+}
+
+.card--2 a .card--display h2 {
+  margin: 20px 0 0;
+}
+
+.card--2 a .card--hover {
+  display: none;
+}
+
+.card--2 a .card--hover h2 {
+  margin: 20px 0;
+}
+
+.card--2 a .card--hover p {
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+.card--2 a .card--hover p.link {
+  margin: 20px 0 0;
+  font-weight: bold;
+  /* color: #5bc0eb; */
+}
+
+.card--2 .card--border {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border: 2px dashed black;
+  z-index: -1;
+}
+
+.card-image {
+  width: 100%; /* Make image fill container */
+  max-height: 250px; /* Maintain aspect ratio */
+  border: 2px solid darkslategrey;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.card--hover {
+  color:white;
+}
+.card--hover h2 {
+  font-size: 3rem;
+}
+.card--hover p {
+  font-size:1.25rem;
+}

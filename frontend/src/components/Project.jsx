@@ -66,7 +66,6 @@ const ProjectDetail = () => {
             <li><strong>Funding Goal:</strong> {formatCurrency(project[0].funding_goal)}</li>
             <li><strong>Current Funding:</strong> {formatCurrency(project[0].current_funding)}</li>
             <li><strong>Remaining Time:</strong> {project[0].remaining_time}</li>
-            <li><strong>Creator: </strong>{project[0].creator}</li>
           </ul>
           {creator && (
             <div>

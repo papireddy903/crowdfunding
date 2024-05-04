@@ -12,8 +12,7 @@ import AxiosInstance from './Axios';
 import { useNavigate } from 'react-router-dom';
 
 function Signup() {
-  const navigate = useNavigate()
-  // State to hold form data
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -22,33 +21,57 @@ function Signup() {
     password: '',
   });
 
+  // State to hold error messages
+  const [errors, setErrors] = useState({
+    username: ''
+  });
+
   // Update state on input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+
+    if (name === "username") {
+      // Check for invalid characters
+      if (/[^a-zA-Z]/.test(value)) {
+        setErrors({
+          ...errors,
+          username: 'Username must contain only letters.'
+        });
+      } else {
+        setErrors({
+          ...errors,
+          username: ''
+        });
+      }
+      setFormData({
+        ...formData,
+        [name]: value.replace(/[^a-zA-Z]/g, '')
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    }
   };
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      // Sending the POST request to the /users endpoint
-      const response = await AxiosInstance.post('/users/', {
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        email: formData.email,
-        username: formData.username,
-        password: formData.password,
-      });
-      console.log(response.data);
-      navigate('/login')
-      // Redirect or display success message
-    } catch (error) {
-      console.error('Error posting data:', error.response);
-      // Handle error here (e.g., display error message)
+    if (!errors.username) {
+      try {
+        const response = await AxiosInstance.post('/users/', {
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          username: formData.username,
+          password: formData.password,
+        });
+        console.log(response.data);
+        navigate('/login');
+      } catch (error) {
+        console.error('Error posting data:', error.response);
+      }
     }
   };
 
@@ -62,9 +85,6 @@ function Signup() {
           </h1>
           <p className='px-3' style={{ color: 'hsl(217, 10%, 50.8%)' }}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Eveniet, itaque accusantium odio, soluta, corrupti aliquam
-            quibusdam tempora at cupiditate quis eum maiores libero
-            veritatis? Dicta facilis sint aliquid ipsum atque?
           </p>
         </MDBCol>
 
@@ -83,6 +103,7 @@ function Signup() {
 
                 <MDBInput wrapperClass='mb-4' label='Email' id='form3' type='email' name='email' onChange={handleInputChange}/>
                 <MDBInput wrapperClass='mb-4' label='Username' id='form4' type='text' name='username' onChange={handleInputChange}/>
+                {errors.username && <div style={{ color: 'red' }}>{errors.username}</div>}
                 <MDBInput wrapperClass='mb-4' label='Password' id='form5' type='password' name='password' onChange={handleInputChange}/>
 
                 <MDBBtn className='w-100 mb-4' size='md' type="submit">Sign Up</MDBBtn>

@@ -23,6 +23,7 @@ export const UserProvider = ({ children }) => {
                     headers: { 'Authorization': `Token ${token}` }
                 });
                 if (response.status === 200) {
+                    console.log(response.data)
                     setUser(response.data);
                 } else {
                     throw new Error('Failed to fetch user data');
@@ -80,6 +81,8 @@ const Profile = () => {
                                 <MDBCardText className="text-muted mb-4">
                                     
                                     <p>{user.first_name} {user.last_name}</p>
+                                    <p>{user.fund_collected}</p>
+                                    {/* <p>{user.bio}</p> */}
                                     
                                 </MDBCardText>
                                 {/* <MDBBtn rounded size="lg">Message now</MDBBtn> */}
