@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { AmountProvider } from './components/AmountContext';
-import { UserProvider } from './components/Profile';  // Make sure this import is correct
+import { UserProvider } from './components/Profile';
 import NavScrollExample from './components/NavScrollExample';
 import Landing from './components/Landing';
 import ProjectsPage from './components/ProjectsPage';
@@ -14,15 +14,15 @@ import Funding_success from './components/Funding_success';
 import PayPalButton from './components/PayPalButton';
 import AddProject from './components/AddProject';
 import Profile from './components/Profile';
+import Discover from './components/Discover';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './hero.css';
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import './addproject.css';
-// import './fund.css'
 import './paypal.css'
-import Discover from './components/Discover';
 import './landing.css'
+import './Navbar.css'
 
 function App() {
   const clientId = "AeLpCh8VYNzm9tjwpk02UmD35CYRsqRwyXFOZRn81qAOWzoZyTLILrepeaaycTbZLSgo22emdeIFn1ra"; // Use your actual PayPal client ID
@@ -43,9 +43,14 @@ function App() {
 function AppContent() {
   const location = useLocation();
 
+  // Define paths where the navbar should not be shown
+  const noNavbarPaths = ['/', '/login', '/signup', '/register'];
+  // Check if the current path is one of the paths that should not show the navbar
+  const showNavbar = !noNavbarPaths.includes(location.pathname);
+
   return (
     <>
-      {location.pathname !== '/' && <NavScrollExample />}
+      {showNavbar && <NavScrollExample />}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<ProjectsPage />} />

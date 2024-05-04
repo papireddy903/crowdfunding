@@ -1,23 +1,64 @@
-.profile-link {
-  margin-right: 10px; /* Adjust the spacing around My Profile link */
+/* Navbar.css */
+
+/* General navbar link styles */
+.navbar-custom .nav-link, .navbar-custom .navbar-brand {
+  color: #ffffff !important; /* Ensuring it overrides Bootstrap or other styles */
+}
+
+/* Hover and focus styles for nav links */
+.navbar-custom .nav-link:hover, .navbar-custom .nav-link:focus {
+  color: #cccccc; /* Light grey for a subtle hover effect */
+}
+
+/* Button styles within the navbar */
+.navbar-custom .btn-outline-danger, .navbar-custom .btn-primary {
+  color: #ffffff; /* Text color */
+  margin-left: 0.5rem; /* Consistent spacing on the left */
 }
 
 .navbar-custom .form-inline {
-  margin-right: 1rem;
+  flex-grow: 1; /* Allows the form to grow and use available space */
+  margin-right: 1rem; /* Right margin remains */
+  margin-left: 1rem; /* Left margin adjustment */
 }
 
-.navbar-custom .nav-link {
-  margin-right: 0.35rem;
-  margin-left: 0.35rem;
+/* Expanding the search input within the form */
+.navbar-custom .form-inline .form-control {
+  max-width: 300px; /* Maximum width for the search bar */
+  width: 100%; /* Allows width to be responsive within the max-width limit */
 }
 
-.navbar-custom .btn-outline-danger, .navbar-custom .btn-primary {
-  margin-left: 0.5rem;
+
+.navbar-custom .profile-link {
+  margin-right: 10px; /* existing margin */
+  margin-left: 10px; /* add space to the left of the profile link */
 }
 
+.navbar-custom .btn-outline-danger {
+  margin-left: 10px; /* ensure there's space on the left side of the logout button */
+}
+
+.navbar-custom .dropdown-menu {
+  position: absolute;
+  top: 100%; /* Directly below the form field */
+  left: 0;
+  right: 0;
+  max-height: 300px; /* Maximum height before scrolling */
+  overflow-y: auto; /* Enables vertical scrolling */
+  overflow-x: hidden; /* Hides horizontal scrollbar */
+  z-index: 1000; /* Ensures dropdown is above other content */
+}
+
+/* Styles for individual dropdown items */
+.navbar-custom .dropdown-item {
+  text-align: left; /* Align text to the left */
+  padding: 8px 20px; /* Adequate padding for touch targets */
+}
+
+/* Adjustments for smaller screens */
 @media (max-width: 992px) {
-  .navbar-custom .nav-link, .profile-link {
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
+  .navbar-custom .nav-link, .navbar-custom .profile-link {
+    margin-right: 0.5rem; /* Right margin on smaller screens */
+    margin-bottom: 0.5rem; /* Bottom margin for better spacing */
   }
 }

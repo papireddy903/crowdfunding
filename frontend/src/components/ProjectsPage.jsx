@@ -30,15 +30,18 @@ const ProjectsPage = () => {
   return (
     <div className="body">
       <div className="hero" style={{ marginTop: '10px', display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', backgroundColor: 'white', padding: '20px' }}>
-        <div style={{ textAlign: 'center', padding: '10px', borderRadius: '10px', backgroundColor: 'white', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-          <h5 style={{ fontSize: '24px', color: '#3498db', fontWeight: 'bold' }}>{totalProjects}</h5>
-          <p style={{ fontSize: '36px', color: '#333' }}>Projects Funded</p>
-        </div>
-        <div style={{ textAlign: 'center', padding: '10px', borderRadius: '10px', backgroundColor: 'white', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
-          <h5 style={{ fontSize: '24px', color: '#e74c3c', fontWeight: 'bold' }}>${totalFunding}</h5>
-          <p style={{ fontSize: '36px', color: '#333' }}>towards creative work</p>
-        </div>
-      </div>
+  <div style={{ textAlign: 'center', padding: '20px', borderRadius: '10px', backgroundColor: 'white', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+    <h5 style={{ fontSize: '28px', color: 'rgb(0, 158, 116)', fontWeight: 'bold' }}>{totalProjects.toLocaleString()}</h5>
+    <p style={{ fontSize: '18px', color: '#333' }}>Projects Funded</p>
+  </div>
+  <div style={{ textAlign: 'center', padding: '20px', borderRadius: '10px', backgroundColor: 'white', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+    <h5 style={{ fontSize: '28px', color: 'rgb(0, 158, 116)', fontWeight: 'bold' }}>${totalFunding.toLocaleString()}</h5>
+    <p style={{ fontSize: '18px', color: '#333' }}>towards creative work</p>
+  </div>
+</div>
+
+
+
       <h4>Explore <span style={{ color: 'rgb(0, 158, 116)' }}>{projects.length} Projects</span></h4>
       <div className="card-container--2">
         {projects.map(project => {

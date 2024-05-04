@@ -44,7 +44,6 @@ class Project(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     photo = models.ImageField(upload_to='images/',blank=True, null=True)
-
     @property 
     def Photourl(self):
         if self.photo:

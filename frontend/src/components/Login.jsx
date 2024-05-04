@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   MDBContainer,
   MDBInput,
-  MDBBtn,
-  MDBIcon
+  MDBBtn
 } from 'mdb-react-ui-kit';
 import { useNavigate, Link } from 'react-router-dom';
 import AxiosInstance from './Axios'; // Ensure this path is correct
@@ -39,45 +38,28 @@ function Login() {
   };
 
   return (
-    <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
-      <form onSubmit={handleLogin}>
+    <MDBContainer className="p-3 my-5 d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
+      <h2>Login</h2>
+      <form onSubmit={handleLogin} style={{ width: '100%', maxWidth: '400px' }}>
         <MDBInput 
-          wrapperClass='mb-4' 
+          className='mb-4' 
           label='Username' 
-          id='form1' 
           type='text'
           onChange={e => setUsername(e.target.value)} 
           value={username}
         />
         <MDBInput 
-          wrapperClass='mb-4' 
+          className='mb-4' 
           label='Password' 
-          id='form2' 
           type='password'
           onChange={e => setPassword(e.target.value)} 
           value={password}
         />
-        <MDBBtn className="mb-4" type="submit">Sign in</MDBBtn>
+        <MDBBtn className="w-100 mb-4" type="submit" style={{ backgroundColor: 'rgb(0, 120, 89)' }}>Sign in</MDBBtn>
         {error && <div className="text-danger">{error}</div>}
       </form>
-      <div className="text-center">
-        <p>Not a member? <Link to="/register">Register</Link></p>
-        <p>or sign up with:</p>
-        {/* Social login placeholders */}
-        <div className='d-flex justify-content-between mx-auto' style={{width: '40%'}}>
-          <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-            <MDBIcon fab icon='facebook-f' size="sm"/>
-          </MDBBtn>
-          <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-            <MDBIcon fab icon='twitter' size="sm"/>
-          </MDBBtn>
-          <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-            <MDBIcon fab icon='google' size="sm"/>
-          </MDBBtn>
-          <MDBBtn tag='a' color='none' className='m-1' style={{ color: '#1266f1' }}>
-            <MDBIcon fab icon='github' size="sm"/>
-          </MDBBtn>
-        </div>
+      <div className="text-center w-100">
+        <p>Not a member? <Link to="/register" style={{ color: 'rgb(0, 120, 89)' }}><span>Register</span></Link></p>
       </div>
     </MDBContainer>
   );

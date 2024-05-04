@@ -140,7 +140,7 @@ function AddProjectForm() {
                 <label>End Date:</label>
                 <input type="date" name="end_date" value={formData.end_date} onChange={handleInputChange} required />
                 
-                <button type="submit" disabled={isLoading}>Submit</button>
+                <button type="submit" disabled={isLoading} style={{backgroundColor:'rgb(0, 120, 89)'}}>Submit</button>
                 
                 {error && <p className="error">{error}</p>}
                 {successMessage && <p className="success">{successMessage}</p>}
