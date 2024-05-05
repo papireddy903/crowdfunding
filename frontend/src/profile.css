@@ -1,0 +1,15 @@
+.profile-page .rounded-circle {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-page .card {
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-page .btn-rounded {
+    border-radius: 30px;
+}
+
+/* This styles the buttons to look more professional, similar to LinkedIn's 'Connect' and 'Message' buttons */

@@ -8,7 +8,7 @@ from ..models import User, Project, Creator , Backer, Comment
 class ProjectSerializer(serializers.ModelSerializer):
     percentage_funded = serializers.SerializerMethodField()
     remaining_time = serializers.SerializerMethodField()
-    creator_user_id = serializers.SerializerMethodField()
+    # creator_user_id = serializers.SerializerMethodField()
 
     class Meta:
         model = Project
@@ -22,9 +22,6 @@ class ProjectSerializer(serializers.ModelSerializer):
         # Calculate or retrieve remaining time, if not a direct field
         return obj.remaining_time
 
-    def get_creator_user_id(self, obj):
-        # Return the User ID associated with the creator
-        return obj.creator.user.id if obj.creator and obj.creator.user else None
 
     def create(self, validated_data):
         backers_data = validated_data.pop('backers', [])
@@ -36,7 +33,7 @@ class ProjectSerializer(serializers.ModelSerializer):
 class UserSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'password']
+        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'password',]
         extra_kwargs = {
             'password': {'write_only': True}
         }

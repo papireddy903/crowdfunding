@@ -23,6 +23,7 @@ import './addproject.css';
 import './paypal.css'
 import './landing.css'
 import './Navbar.css'
+import './profile.css'
 
 function App() {
   const clientId = "AeLpCh8VYNzm9tjwpk02UmD35CYRsqRwyXFOZRn81qAOWzoZyTLILrepeaaycTbZLSgo22emdeIFn1ra"; // Use your actual PayPal client ID

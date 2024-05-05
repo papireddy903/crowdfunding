@@ -44,6 +44,7 @@ class Project(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     photo = models.ImageField(upload_to='images/',blank=True, null=True)
+    rewards = models.TextField(null=True, blank=True, max_length=1000)
     @property 
     def Photourl(self):
         if self.photo:

@@ -96,9 +96,10 @@ function AddProjectForm() {
                 description: '',
                 funding_goal: '',
                 project_type: '',
+                rewards: '',
                 photo: null,
                 end_date: '',
-                creator: ''  
+                creator: '' 
             });
             setSuccessMessage('Project added successfully!');
             navigate("/home");
@@ -133,6 +134,8 @@ function AddProjectForm() {
                     <option value="games">Games</option>
                     <option value="publishing">Publishing</option>
                 </select>
+                <label>Rewards:</label>
+                <textarea type="text" name="reward" value={formData.rewards} onChange={handleInputChange} required/>
                 
                 <label>Upload Photo:</label>
                 <input type="file" name="photo" onChange={handleFileChange} required />
