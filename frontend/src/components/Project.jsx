@@ -12,7 +12,7 @@ const Project = () => {
     AxiosInstance.get(`/projects/${id}`)
       .then(response => {
         setProject(response.data);
-        console.log(response.data[0].creator)
+        console.log(response.data[0].creator);
         
         if (response.data[0].creator) {
           fetchCreator(response.data[0].creator);
@@ -26,7 +26,7 @@ const Project = () => {
   const fetchCreator = (creatorId) => {
     AxiosInstance.get(`/creators/${creatorId}`)
       .then(response => {
-        console.log(response)
+        console.log(response);
         setCreator(response.data.username);
       })
       .catch(error => {
@@ -66,6 +66,7 @@ const Project = () => {
             <li><strong>Funding Goal:</strong> {formatCurrency(project[0].funding_goal)}</li>
             <li><strong>Current Funding:</strong> {formatCurrency(project[0].current_funding)}</li>
             <li><strong>Remaining Time:</strong> {project[0].remaining_time}</li>
+            <li><strong>Rewards:</strong> {project[0].rewards}</li>
           </ul>
           {creator && (
             <div>

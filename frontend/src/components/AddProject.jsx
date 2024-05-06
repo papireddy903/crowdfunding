@@ -10,8 +10,8 @@ function AddProjectForm() {
         project_type: '',
         photo: null,
         end_date: '',
-        creator: '', 
-        backers : '',
+        creator: '',
+        rewards: '',  // Ensure this key matches the input name attribute
     });
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
@@ -21,8 +21,10 @@ function AddProjectForm() {
         const userId = localStorage.getItem('userId');
         if (userId) {
             setFormData(prev => ({ ...prev, creator: userId }));
+        } else {
+            navigate("/login");
         }
-    }, []);
+    }, [navigate]);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -33,16 +35,14 @@ function AddProjectForm() {
             setFormData(prev => ({ ...prev, [name]: value }));
         }
     };
-    
-    
 
     const handleFileChange = (event) => {
         setFormData(prev => ({ ...prev, photo: event.target.files[0] }));
     };
 
     const validateForm = () => {
-        if (!formData.title || !formData.description || !formData.funding_goal || !formData.project_type || !formData.end_date || !formData.creator) {
-            setError("All fields must be filled out, including a valid user ID.");
+        if (!formData.title || !formData.description || !formData.funding_goal || !formData.project_type || !formData.end_date || !formData.creator || !formData.rewards) {
+            setError("All fields must be filled out, including a valid user ID and rewards.");
             return false;
         }
         return true;
@@ -51,28 +51,27 @@ function AddProjectForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!validateForm()) return;
-    
+
         const token = localStorage.getItem('authToken');
         if (!token) {
             setError('Authentication required. Please log in.');
             return;
         }
-    
+
         const data = new FormData();
         Object.keys(formData).forEach(key => {
             if (formData[key] !== null) {
                 if (Array.isArray(formData[key])) {
-                    formData[key].forEach(item => data.append(`${key}[]`, item));  
+                    formData[key].forEach(item => data.append(`${key}[]`, item));
                 } else {
                     data.append(key, formData[key]);
                 }
             }
         });
-        
-    
+
         setIsLoading(true);
         setError('');
-    
+
         try {
             const response = await fetch('http://127.0.0.1:8000/api/projects/', {
                 method: 'POST',
@@ -81,13 +80,12 @@ function AddProjectForm() {
                 },
                 body: data
             });
-    
+
             if (!response.ok) {
-                console.log(response)
-                const error = await response.text(); 
+                const error = await response.text();
                 throw new Error('Network response was not satisfactory: ' + error);
             }
-    
+
             const result = await response.json();
             console.log('Project added successfully:', result);
             alert('Project added successfully!');
@@ -99,7 +97,7 @@ function AddProjectForm() {
                 rewards: '',
                 photo: null,
                 end_date: '',
-                creator: '' 
+                creator: ''
             });
             setSuccessMessage('Project added successfully!');
             navigate("/home");
@@ -110,7 +108,6 @@ function AddProjectForm() {
             setIsLoading(false);
         }
     };
-    
 
     return (
         <div className="add-project-container">
@@ -134,8 +131,9 @@ function AddProjectForm() {
                     <option value="games">Games</option>
                     <option value="publishing">Publishing</option>
                 </select>
+                
                 <label>Rewards:</label>
-                <textarea type="text" name="reward" value={formData.rewards} onChange={handleInputChange} required/>
+                <textarea name="rewards" value={formData.rewards} onChange={handleInputChange} required />
                 
                 <label>Upload Photo:</label>
                 <input type="file" name="photo" onChange={handleFileChange} required />
@@ -143,7 +141,7 @@ function AddProjectForm() {
                 <label>End Date:</label>
                 <input type="date" name="end_date" value={formData.end_date} onChange={handleInputChange} required />
                 
-                <button type="submit" disabled={isLoading} style={{backgroundColor:'rgb(0, 120, 89)'}}>Submit</button>
+                <button type="submit" disabled={isLoading} style={{backgroundColor: 'rgb(0, 120, 89)'}}>Submit</button>
                 
                 {error && <p className="error">{error}</p>}
                 {successMessage && <p className="success">{successMessage}</p>}
