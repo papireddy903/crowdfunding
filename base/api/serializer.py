@@ -1,7 +1,9 @@
 from rest_framework.serializers import ModelSerializer, Serializer, SerializerMethodField
 from rest_framework import serializers
 from django.contrib.auth import authenticate
-from ..models import User, Project, Creator , Backer, Comment
+from ..models import *
+from django.contrib.auth.hashers import make_password
+
 
 
 
@@ -30,24 +32,39 @@ class ProjectSerializer(serializers.ModelSerializer):
         # project.backers.set(backers_data) if backers_data else None
         return project
 
-class UserSerializer(ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'password',]
+        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'password']
         extra_kwargs = {
-            'password': {'write_only': True}
+            'password': {'write_only': True, 'required': False}
         }
 
     def create(self, validated_data):
-        user = User.objects.create(
-            username=validated_data['username'],
-            email=validated_data['email'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name'],
-        )
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
+        validated_data['password'] = make_password(validated_data.get('password'))
+        return super(UserSerializer, self).create(validated_data)
+
+    def update(self, instance, validated_data):
+        password = validated_data.pop('password', None)
+        if password:
+            instance.password = make_password(password)
+        return super(UserSerializer, self).update(instance, validated_data)
+    
+class UserProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)  
+
+    class Meta:
+        model = UserProfile
+        fields = ['user', 'favorite_cricketer']
+        
+
+
+    # def update(self, instance, validated_data):
+    #     # Update the UserProfile instance here
+    #     instance.bio = validated_data.get('bio', instance.bio)
+    #     instance.favorite_cricketer = validated_data.get('favorite_cricketer', instance.favorite_cricketer)
+    #     instance.save()
+    #     return instance
 
 class CreatorSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)

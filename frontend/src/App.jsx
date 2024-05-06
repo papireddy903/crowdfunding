@@ -24,7 +24,10 @@ import './paypal.css'
 import './landing.css'
 import './Navbar.css'
 import './profile.css'
-
+import './funding.css'
+import ForgotPassword from './components/ForgotPassword'
+import './forgotpwd.css'
+import PasswordReset from './components/PasswordReset'
 function App() {
   const clientId = "AeLpCh8VYNzm9tjwpk02UmD35CYRsqRwyXFOZRn81qAOWzoZyTLILrepeaaycTbZLSgo22emdeIFn1ra"; // Use your actual PayPal client ID
 
@@ -65,6 +68,8 @@ function AppContent() {
         <Route path="/register" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/discover" element={<Discover />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password-form" element={<PasswordReset />} />
       </Routes>
     </>
   );

@@ -13,4 +13,5 @@ urlpatterns = [
     path('backers/', BackerView.as_view(), name='backers'),
     path('comments/', CommentsView.as_view(), name='comments'),
     path('comments/<str:title>/', CommentDetail.as_view(), name='comment_detail'),
+    path("user_profiles/",UserProfileAPIView.as_view(), name='user_profiles'),
 ]

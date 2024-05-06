@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import User, Creator, Project, Backer, Comment
-
+from .models import *
 admin.site.unregister(User)
 
 class ProjectInline(admin.TabularInline):
@@ -27,4 +26,8 @@ class ProjectAdmin(admin.ModelAdmin):
 @admin.register(Comment) 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('project','commenter_name','comment_body','date_added') 
-    
+
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ['user', 'favorite_cricketer']
+
+admin.site.register(UserProfile, UserProfileAdmin)

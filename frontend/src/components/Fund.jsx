@@ -1,22 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import AxiosInstance from './Axios'; // Make sure this path is correct
-import { useUser } from './UserContext'; // Adjust the import path as needed
+import AxiosInstance from './Axios';
+import { useAmount } from './AmountContext';  // Context to store the amount
 
 const Fund = () => {
-    const { id } = useParams(); // Getting the project ID from the URL
-    const { user, isLoading: userLoading } = useUser();
+    const { id } = useParams();
     const navigate = useNavigate();
+    const { setAmount } = useAmount();  // Use context to set the amount
 
     const [fundingAmount, setFundingAmount] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
-
-    useEffect(() => {
-        if (!userLoading && !user) {
-            navigate('/login');
-        }
-    }, [user, userLoading, navigate]);
 
     const handleFundingAmountChange = (e) => {
         setFundingAmount(e.target.value);
@@ -37,7 +31,8 @@ const Fund = () => {
             });
             
             if (response.status === 200) {
-                navigate('/success'); // Redirect to success page or handle as needed
+                setAmount(fundingAmount);  // Set the funding amount in the context
+                navigate('/checkout');  // Navigate to checkout page
             } else {
                 throw new Error('Failed to process the funding');
             }
@@ -48,10 +43,6 @@ const Fund = () => {
             setIsLoading(false);
         }
     };
-
-    if (userLoading) {
-        return <div>Loading...</div>; // Loading indicator while checking user authentication
-    }
 
     return (
         <div className="fund-container">
@@ -70,7 +61,7 @@ const Fund = () => {
                     />
                 </div>
                 <button type="submit" className="btn btn-primary" disabled={isLoading}>
-                    {isLoading ? 'Funding...' : 'Fund'}
+                    {isLoading ? 'Processing...' : 'Proceed to Payment'}
                 </button>
             </form>
         </div>

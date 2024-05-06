@@ -1,9 +1,9 @@
-from ..models import User, Project, Creator , Backer, Comment
+from ..models import *
 from rest_framework.serializers import ModelSerializer 
 from decimal import Decimal 
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
-from .serializer import BackerSerializer, UserSerializer, ProjectSerializer, CreatorSerializer, CommentSerializer
+from .serializer import *
 from rest_framework.authtoken.models import Token
 from rest_framework import status
 from rest_framework.permissions import AllowAny
@@ -17,8 +17,22 @@ from django.db.models import F, Q
 import requests
 from django.http import JsonResponse
 from django.core.cache import cache
+from django.core.mail import send_mail
+from django.contrib.auth import get_user_model
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth.hashers import make_password
 
 
+User = get_user_model()
+
+class UserProfileAPIView(APIView):
+    permission_classes = [AllowAny] 
+
+    def get(self, request):
+        user_profiles = UserProfile.objects.all()
+        serializer = UserProfileSerializer(user_profiles, many=True)
+        return Response(serializer.data)
 
 
 
@@ -95,6 +109,8 @@ class UsersView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
     
 @method_decorator(csrf_exempt, name='dispatch')
 class ProjectsView(APIView):
@@ -175,6 +191,13 @@ class UserDetail(APIView):
         users = User.objects.get(id=pk)
         serializer = UserSerializer(users, many=False)
         return Response(serializer.data)
+
+    def put(self, request, pk):
+        user = get_object_or_404(User, id=pk)
+        # Update the request data with hashed password
+        updated_data = request.data.copy()
+        user['password'] = updated_data['password']
+        return Response(user['password'], status=status.HTTP_200_OK)
     
 class BackerView(APIView):
     permission_classes = [AllowAny]

@@ -4,6 +4,13 @@ from django.contrib.auth.models import User
 from datetime import date
 from django.conf import settings 
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    favorite_cricketer = models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+        return self.user.username
+
 class Backer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     bio = models.TextField(null=True, blank=True, default=None)

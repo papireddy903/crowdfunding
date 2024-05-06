@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import AxiosInstance from './Axios';  
 
-const ProjectDetail = () => {
+const Project = () => {
   const { id } = useParams();
   const [project, setProject] = useState(null);
   const [creator, setCreator] = useState(null);
@@ -27,7 +27,7 @@ const ProjectDetail = () => {
     AxiosInstance.get(`/creators/${creatorId}`)
       .then(response => {
         console.log(response)
-        setCreator(response.data[0].username);
+        setCreator(response.data.username);
       })
       .catch(error => {
         console.error('Error fetching creator:', error);
@@ -85,4 +85,4 @@ const ProjectDetail = () => {
   );
 };
 
-export default ProjectDetail;
+export default Project;
