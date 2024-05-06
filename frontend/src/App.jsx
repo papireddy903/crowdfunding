@@ -69,7 +69,7 @@ function AppContent() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/discover" element={<Discover />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password-form" element={<PasswordReset />} />
+        <Route path="/reset-password-form/:userId" element={<PasswordReset />} />
       </Routes>
     </>
   );

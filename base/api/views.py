@@ -22,6 +22,7 @@ from django.contrib.auth import get_user_model
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.hashers import make_password
+import logging
 
 
 User = get_user_model()
@@ -36,6 +37,8 @@ class UserProfileAPIView(APIView):
 
 
 
+logger = logging.getLogger(__name__)
+
 @method_decorator(csrf_exempt, name='dispatch')
 class LoginAPIView(APIView):
     permission_classes = [AllowAny]
@@ -43,14 +46,17 @@ class LoginAPIView(APIView):
     def post(self, request, *args, **kwargs):
         username = request.data.get('username')
         password = request.data.get('password')
+        logger.debug(f"Login attempt for {username} with password {password}")
+
         user = authenticate(username=username, password=password)
         if user:
             token, _ = Token.objects.get_or_create(user=user)
-            # id = User.objects.get(id=user.id)
-
-            return Response({'token': token.key, 'userId':user.id}, status=status.HTTP_200_OK)
+            logger.debug(f"Login successful for {username}, token created: {token.key}")
+            return Response({'token': token.key, 'userId': user.id}, status=status.HTTP_200_OK)
         else:
+            logger.error(f"Login failed for {username}")
             return Response({"error": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 @method_decorator(csrf_exempt, name='dispatch')
 class FundAPIView(APIView):
@@ -187,17 +193,22 @@ class CreatorDetail(APIView):
 
 class UserDetail(APIView):
     permission_classes = [AllowAny]
+
     def get(self, request, pk):
-        users = User.objects.get(id=pk)
-        serializer = UserSerializer(users, many=False)
+        user = get_object_or_404(User, id=pk)
+        serializer = UserSerializer(user)
         return Response(serializer.data)
 
     def put(self, request, pk):
         user = get_object_or_404(User, id=pk)
-        # Update the request data with hashed password
-        updated_data = request.data.copy()
-        user['password'] = updated_data['password']
-        return Response(user['password'], status=status.HTTP_200_OK)
+        serializer = UserSerializer(user, data=request.data,partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            print(serializer.errors)  # Log or print the errors to understand what's wrong
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     
 class BackerView(APIView):
     permission_classes = [AllowAny]

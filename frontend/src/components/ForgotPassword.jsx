@@ -1,37 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import AxiosInstance from './Axios';  // Ensure correct import path
+import React, { useState } from 'react';
+import AxiosInstance from './Axios'; 
 import { useNavigate } from 'react-router-dom';
-import '../forgotpwd.css';
 
 const ForgotPassword = () => {
+    const [username, setUsername] = useState('');
     const [answer, setAnswer] = useState('');
     const [error, setError] = useState('');
-    const [username, setUsername] = useState('');
     const navigate = useNavigate();
+
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setError('');
-
         try {
-            // Fetch all user profiles to find the matching username and security question answer
             const profilesResponse = await AxiosInstance.get('/user_profiles/');
             const userProfile = profilesResponse.data.find(profile => profile.user.username === username);
-
             if (!userProfile) {
                 setError('Username not found.');
                 return;
             }
-
             if (userProfile.favorite_cricketer.toLowerCase() === answer.toLowerCase()) {
-                navigate('/reset-password-form'); // Navigate to set new password page
+                navigate(`/reset-password-form/${userProfile.user.id}`); // Passing userId
+                console.log(userProfile.user.id)
             } else {
-                setError('Security answer is incorrect.');
+                setError('Incorrect answer.');
             }
         } catch (err) {
-            setError('Failed to verify user details.');
-            console.error('Error fetching user profiles:', err);
+            setError('Error verifying user details.');
+            console.error(err);
         }
+        
     };
 
     return (
@@ -47,7 +45,7 @@ const ForgotPassword = () => {
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     />
-                    <label>Who is your favorite cricketer?</label>
+                    <label>Favorite Cricketer:</label>
                     <input
                         type="text"
                         className="form-control"

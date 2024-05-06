@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import AxiosInstance from './Axios'; // Ensure the import path is correct
+import AxiosInstance from './Axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const ResetPasswordForm = () => {
-    const { userId } = useParams(); 
+const PasswordReset = () => {
+    const { userId } = useParams();
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
+
+    console.log(userId)
 
     const handleResetPassword = async (event) => {
         event.preventDefault();
@@ -15,13 +17,15 @@ const ResetPasswordForm = () => {
             setError("Passwords do not match.");
             return;
         }
-
+        if (!userId) {
+            setError("User identification has failed.");
+            return;
+        }
         try {
-            // Send PUT request to update password
-            const response = await AxiosInstance.put(`/users/3/`, { password });
+            const response = await AxiosInstance.put(`/users/${userId}/`, { password });
             if (response.status === 200) {
                 alert('Password reset successfully.');
-                navigate('/login'); // Redirect to login page
+                navigate('/login');
             } else {
                 throw new Error('Failed to reset password.');
             }
@@ -44,8 +48,6 @@ const ResetPasswordForm = () => {
                         onChange={e => setPassword(e.target.value)}
                         required
                     />
-                </div>
-                <div className="form-group">
                     <label>Confirm New Password:</label>
                     <input
                         type="password"
@@ -62,4 +64,4 @@ const ResetPasswordForm = () => {
     );
 };
 
-export default ResetPasswordForm;
+export default PasswordReset;
