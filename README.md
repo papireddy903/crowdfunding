@@ -1,3 +1,9 @@
+# Authors 
+[Papireddy E](https://github.com/papireddy903)
+[SaiKeerthan](https://github.com/sai762)
+[Chaitanya](https://github.com/CHAITANYA000003)
+[Pranav](https://github.com/pranavkrishnayadav)
+
 # Crowdfunding Platform
 
 Welcome to our Crowdfunding Platform, a dynamic Full Stack application that connects creators and backers to bring innovative projects to life. This platform offers an interactive and user-friendly interface to showcase a variety of projects across different categories.
