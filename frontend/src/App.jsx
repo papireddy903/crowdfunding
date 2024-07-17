@@ -28,6 +28,7 @@ import './funding.css'
 import ForgotPassword from './components/ForgotPassword'
 import './forgotpwd.css'
 import PasswordReset from './components/PasswordReset'
+import MyProjects from './components/MyProjects';
 function App() {
   const clientId = "AeLpCh8VYNzm9tjwpk02UmD35CYRsqRwyXFOZRn81qAOWzoZyTLILrepeaaycTbZLSgo22emdeIFn1ra"; // Use your actual PayPal client ID
 
@@ -47,9 +48,7 @@ function App() {
 function AppContent() {
   const location = useLocation();
 
-  // Define paths where the navbar should not be shown
   const noNavbarPaths = ['/', '/login', '/signup', '/register'];
-  // Check if the current path is one of the paths that should not show the navbar
   const showNavbar = !noNavbarPaths.includes(location.pathname);
 
   return (
@@ -70,6 +69,7 @@ function AppContent() {
         <Route path="/discover" element={<Discover />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password-form/:userId" element={<PasswordReset />} />
+        <Route path="/myprojects" element={<MyProjects />} />
       </Routes>
     </>
   );

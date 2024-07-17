@@ -56,6 +56,7 @@ function NavScrollExample() {
             <Nav.Link as={Link} to="/">Home</Nav.Link>
             <Nav.Link as={Link} to="/discover">Discover</Nav.Link>
             <Nav.Link as={Link} to="/add-project">Create Campaign</Nav.Link>
+            <Nav.Link as={Link} to="/myprojects">My Campaigns</Nav.Link>
           </Nav>
           <Navbar.Brand className="mx-auto" style={{ color: 'white', fontSize:'25px'}}>Crowdfunding</Navbar.Brand>
           <Form className="d-flex position-relative" onSubmit={e => e.preventDefault()} style={{ marginRight: '10px' }}>
@@ -66,7 +67,7 @@ function NavScrollExample() {
     value={searchQuery}
     onChange={handleSearch}
     className="mr-sm-2"
-    style={{ width: '300px' }} // Increase width specifically to 300px
+    style={{ width: '300px' }}
   />
   {filteredProjects.length > 0 && (
     <div className="search-results dropdown-menu show">

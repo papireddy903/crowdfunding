@@ -42,9 +42,11 @@ const ProjectsPage = () => {
 
 
 
+
       <h4>Explore <span style={{ color: 'rgb(0, 158, 116)' }}>{projects.length} Projects</span></h4>
       <div className="card-container--2">
         {projects.map(project => {
+          console.log(project)
           const imageUrl = `${baseUrl}${project.photo}`;
           if (project.remaining_time !== "Due date ended" && project.creator != userId) {
             console.log(project.creator);

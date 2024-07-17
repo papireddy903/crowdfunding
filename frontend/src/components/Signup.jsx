@@ -136,6 +136,9 @@ function Signup() {
                     {errors.password.map((error, index) => <li key={index}>{error}</li>)}
                   </ul>
                 )}
+                <label>Who is your favourite cricketer?</label>
+                <MDBInput wrapperClass='mb-4'  id='form3' type='text' name='security' onChange={handleInputChange}/>
+
 
             <MDBBtn 
                 className='w-100 mb-4' 

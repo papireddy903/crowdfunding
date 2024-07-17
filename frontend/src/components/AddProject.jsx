@@ -11,7 +11,7 @@ function AddProjectForm() {
         photo: null,
         end_date: '',
         creator: '',
-        rewards: '',  // Ensure this key matches the input name attribute
+        rewards: '',  
     });
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');

@@ -42,7 +42,7 @@ const Landing = () => {
             <h1 className="hero-text-1">Crowd Funding Made Easy</h1>
             <div className="hero-explore-1">
               <Link to="/home">Get Started</Link>
-              <img src={arrow_btn} alt="" />
+              <Link to="/home"><img src={arrow_btn} alt="" /></Link>
             </div>
           </div>
         </div>

@@ -77,7 +77,7 @@ const Project = () => {
           <div className="progress">
             <div className="progress-bar" style={{ width: progressWidth }} aria-valuenow={project.current_funding} aria-valuemin="0" aria-valuemax={project.funding_goal}></div>
           </div>
-          <div>
+          <div style={{marginTop:'10px'}}>
             <Link to={`/fund/${project[0].id}`} className="btn btn-primary ms-2">Back this Project</Link>
           </div>
         </div>

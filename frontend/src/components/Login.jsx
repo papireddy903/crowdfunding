@@ -23,7 +23,7 @@ function Login() {
       if (response.data.token) {
         localStorage.setItem('authToken', response.data.token);
         localStorage.setItem('userId', response.data.userId);
-        navigate('/'); // Navigate to home after login
+        navigate('/home'); // 
       } else {
         throw new Error('No token received');
       }
