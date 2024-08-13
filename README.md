@@ -60,5 +60,15 @@ git clone https://github.com/papireddy903/crowdfunding
    ```bash
    npm install
 
+7. **Run frontend**
+   ```bash
+   npm run dev
+
+8. **Start Server**
+   ```
+   python manage.py runserver
+
+   
+
        
 
