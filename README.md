@@ -7,6 +7,8 @@
 # Crowdfunding Platform
 
 Welcome to our Crowdfunding Platform, a dynamic Full Stack application that connects creators and backers to bring innovative projects to life. This platform offers an interactive and user-friendly interface to showcase a variety of projects across different categories.
+![image](https://github.com/user-attachments/assets/219400e1-9df0-40f2-9f4a-90a12b64f749)
+
 
 ## Features
 
@@ -57,6 +59,16 @@ git clone https://github.com/papireddy903/crowdfunding
 6. **Install dependencies**
    ```bash
    npm install
+
+7. **Run frontend**
+   ```bash
+   npm run dev
+
+8. **Start Server**
+   ```
+   python manage.py runserver
+
+   
 
        
 
