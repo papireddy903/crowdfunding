@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import AxiosInstance from './Axios';  
+import data from './faq_data'
+import '../project.css'
 
 const Project = () => {
   const { id } = useParams();
+  const [selected, setSelected] = useState(null);
+
   const [project, setProject] = useState(null);
   const [creator, setCreator] = useState(null);
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
+  
+  const handleClick = (dataId) => {
+    console.log(selected);
+    setSelected(dataId === selected ? null : dataId);
+  };
+
+
 
   useEffect(() => {
     AxiosInstance.get(`/projects/${id}`)
@@ -82,6 +93,34 @@ const Project = () => {
           </div>
         </div>
       </div>
+
+      <div className="accordion">
+        {data && data.length > 0 ? (
+          data.map((dataItem) => (
+            <div className="item" key={dataItem.id}>
+              <div
+                className="display-title"
+                onClick={()=>handleClick(dataItem.id)}
+              >
+                <h3 className="question">{dataItem.question}</h3>
+                <span className="plus">+</span>
+              </div>
+              
+              { selected==dataItem.id && 
+
+              <div className="content">{dataItem.answer}</div>
+
+              }
+              
+                
+            
+            </div>
+          ))
+        ) : (
+          <div>No data found! </div>
+        )}
+      </div>
+     
     </div>
   );
 };

@@ -29,6 +29,9 @@ import ForgotPassword from './components/ForgotPassword'
 import './forgotpwd.css'
 import PasswordReset from './components/PasswordReset'
 import MyProjects from './components/MyProjects';
+import Faqs from './components/Faqs';
+
+
 function App() {
   const clientId = "AeLpCh8VYNzm9tjwpk02UmD35CYRsqRwyXFOZRn81qAOWzoZyTLILrepeaaycTbZLSgo22emdeIFn1ra"; // Use your actual PayPal client ID
 
@@ -70,6 +73,7 @@ function AppContent() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password-form/:userId" element={<PasswordReset />} />
         <Route path="/myprojects" element={<MyProjects />} />
+        <Route path="/faqs" element={<Faqs />}/>
       </Routes>
     </>
   );
