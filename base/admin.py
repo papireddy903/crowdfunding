@@ -20,7 +20,7 @@ class BackerAdmin(admin.ModelAdmin):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'project_type', 'funding_goal', 'current_funding', 'creator')
+    list_display = ('title', 'description', 'project_type', 'funding_goal', 'current_funding', 'creator','end_date')
     exclude = ('backers',)
 
 @admin.register(Comment) 
